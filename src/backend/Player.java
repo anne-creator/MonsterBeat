@@ -15,7 +15,7 @@ public class Player {
     private int level2HighestScore;
     private int level3HighestScore;
 
-    /** constructor to create a new player */
+    /** constructor to create a new player without scores */
     public Player(String email, String name, String password)  {
         this.email = email;
         this.name = name;
@@ -25,8 +25,30 @@ public class Player {
         this.level3HighestScore = 0;
     }
 
+    /** constructor to create a new player with scores */
+    public Player(String email, String name, String password, int level1HighestScore, int level2HighestScore, int level3HighestScore) {
+        this.email = email;
+        this.name = name;
+        this.password = password;
+        this.level1HighestScore = level1HighestScore;
+        this.level2HighestScore = level2HighestScore;
+        this.level3HighestScore = level3HighestScore;
+    }
+
     public String getEmail() {
         return email;
+    }
+
+    @Override
+    public String toString() {
+        return "Player{" +
+            "email='" + email + '\'' +
+            ", name='" + name + '\'' +
+            ", password='" + password + '\'' +
+            ", level1HighestScore=" + level1HighestScore +
+            ", level2HighestScore=" + level2HighestScore +
+            ", level3HighestScore=" + level3HighestScore +
+            '}';
     }
 
     public void setEmail(String email) {
@@ -88,6 +110,9 @@ public class Player {
         }
     }
 
-
-
+    // testing
+//    public static void main(String[] args) throws IOException {
+//        Player p = new Player("anneliu@gmail.com", "like", "12323", 1,2, 3);
+//        System.out.println(p);
+//    }
 }
