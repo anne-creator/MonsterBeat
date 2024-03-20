@@ -6,11 +6,11 @@ import java.util.*;
 /**
  * Handles the storage and retrieval of player data in a CSV format.
  */
-public class PlayerData {
+public class LeaderBoard {
     private static final String CSV_FILE = "players.csv";
 
     /**
-     * Represents a player with a name, email, password, score, and the date of last save.
+     * Represents a player with, email, password, score, and the date of last save.
      */
     static class Player {
         String name;
