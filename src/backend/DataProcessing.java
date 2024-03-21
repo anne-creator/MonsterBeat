@@ -5,35 +5,40 @@ import java.util.*;
 
 /**
  *
- * readData to a arrayList, addplayer to database, update player score to input file
+ * readData to a arrayList, addplayer to database, update player score to database
+ * maybe a deletePlayer method later
  */
 public class DataProcessing {
     //input source file
-    String CSV_FILE = "src/database/Database.csv";
-    ArrayList<Player> players = new ArrayList<>();
-
-    public DataProcessing() {
-
-    }
+    String CSV_FILE = "src/database/UserInfo.csv";
 
     /**
      * add a player's data to CSV file.
      *
-     * @param Player the player object to save
+     * @param player the player object to save
      * @throws IOException if there is an I/O error during saving
      */
-
+    public void addPlayer(Player player){
+        try (FileWriter fileWriter = new FileWriter(CSV_FILE, true)) {
+            String playerString = player.getEmail() + ',' + player.getName() + ',' + player.getPassword() + ',' + player.getLevel1HighestScore() + ',' + player.getLevel2HighestScore() + ',' + player.getLevel3HighestScore() + "\n";
+            System.out.println(playerString);
+            fileWriter.append(playerString);
+            System.out.println("Data appended successfully.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
      * read database source to a list of Players
      *
      * @return a list of player source
-     * @throws IOException if there is an I/O error during reading
+     * catch IOException if there is an I/O error during reading
      */
-    public ArrayList<Player> readData() throws IOException {
-        System.out.println(new File(CSV_FILE).getAbsolutePath());
+    public ArrayList<Player> readData() {
+        System.out.println("absolute path is: " + new File(CSV_FILE).getAbsolutePath() + "\n"); // print path
+        ArrayList<Player> players = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(CSV_FILE))) {
-
             String line = br.readLine(); // Read header line
             while (line != null) {
                 String[] data = line.split(",");
@@ -57,6 +62,9 @@ public class DataProcessing {
 
     public static void main(String[] args) throws IOException {
         DataProcessing data = new DataProcessing();
+        data.addPlayer(new Player("like@gmail.com", "like", "123", 333, 444, 555 ));
+        data.readData();
+        data.addPlayer(new Player("dislike@gmail.com", "dislike", "678", 456, 234, 123 ));
         data.readData();
     }
 }
