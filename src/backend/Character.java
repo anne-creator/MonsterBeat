@@ -1,2 +1,5 @@
-package backend;public class Character {
+package backend;
+
+public class Character extends Player {
+
 }

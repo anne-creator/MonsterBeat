@@ -136,8 +136,8 @@ public class GuiTester implements ActionListener{
 
 					/////////////////////////////////////////////////////
 
-					button1Play = new JButton("Play"); 						// Set Buttons
-					button1Play.setBounds(849, 173, 248, 80);						// Play
+					button1Play = new JButton("Player"); 						// Set Buttons
+					button1Play.setBounds(849, 173, 248, 80);						// Player
 					button1Play.addActionListener(this);
 					panels[panelMain].add(button1Play);
 
@@ -305,7 +305,6 @@ public class GuiTester implements ActionListener{
 
 
 	}
-
 
 	public static void main(String[] args) {
 		GuiTester gui = new GuiTester();

@@ -21,7 +21,7 @@ public class DataProcessing {
      * @param player the player object to save
      * @throws IOException if there is an I/O error during saving
      */
-    public static void addPlayer(Player player){
+    public static void addPlayer(User player){
         try (FileWriter fileWriter = new FileWriter(CSV_FILE, true)) {
             String playerString = player.getEmail() + ',' + player.getName() + ',' + player.getPassword() + ',' + player.getLevel1HighestScore() + ',' + player.getLevel2HighestScore() + ',' + player.getLevel3HighestScore() + "\n";
             System.out.println(playerString);
@@ -38,15 +38,15 @@ public class DataProcessing {
      * @return a list of player source
      * catch IOException if there is an I/O error during reading
      */
-    public static ArrayList<Player> readData() {
+    public static ArrayList<User> readData() {
         System.out.println("absolute path is: " + new File(CSV_FILE).getAbsolutePath() + "\n"); // print path
-        ArrayList<Player> players = new ArrayList<>();
+        ArrayList<User> players = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(CSV_FILE))) {
             String line = br.readLine(); // Read header line
             while (line != null) {
                 String[] data = line.split(",");
                 if (data.length == 6) {
-                    Player player = new Player(data[0], data[1], data[2], Integer.parseInt(data[3]), Integer.parseInt(data[4]), Integer.parseInt(data[5]));
+                    User player = new User(data[0], data[1], data[2], Integer.parseInt(data[3]), Integer.parseInt(data[4]), Integer.parseInt(data[5]));
                     players.add(player);
                 }
                 line = br.readLine();
@@ -56,7 +56,7 @@ public class DataProcessing {
         }
 
         // testing
-//        for (Player player : players) {
+//        for (User player : players) {
 //                System.out.println(player);
 //        }
 
@@ -64,9 +64,9 @@ public class DataProcessing {
     }
 
 //    public static void main(String[] args) {
-//        DataProcessing.addPlayer(new Player("like@gmail.com", "like", "123", 333, 444, 555 ));
+//        DataProcessing.addPlayer(new User("like@gmail.com", "like", "123", 333, 444, 555 ));
 //        DataProcessing.readData();
-//        DataProcessing.addPlayer(new Player("dislike@gmail.com", "dislike", "678", 456, 234, 123 ));
+//        DataProcessing.addPlayer(new User("dislike@gmail.com", "dislike", "678", 456, 234, 123 ));
 //        DataProcessing.readData();
 //    }
 }

@@ -1,11 +1,12 @@
 package backend;
 
 /**
- * Useage: MarkCalculator.calculateMarks(monster, player, timeLeft)
+ * Useage: GameResult.calculateMarks(monster, player, timeLeft)
  */
-public class MarkCalculator {
+public class GameResult {
 
-    public static int calculatMarks(Monster monster, Player player, int timeLeft) {
+    public static int calculateMarks(Monster monster, Character character, int timeLeft) {
         return 1; //testing
     }
+
 }

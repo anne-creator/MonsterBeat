@@ -7,7 +7,7 @@ import java.io.IOException;
  * (constructor)create a new player
  * update player
  */
-public class Player {
+public class User {
     private String email;
     private String name;
     private String password;
@@ -16,7 +16,7 @@ public class Player {
     private int level3HighestScore;
 
     /** constructor to create a new player without scores */
-    public Player(String email, String name, String password)  {
+    public User(String email, String name, String password)  {
         this.email = email;
         this.name = name;
         this.password = password;
@@ -26,7 +26,7 @@ public class Player {
     }
 
     /** constructor to create a new player with scores */
-    public Player(String email, String name, String password, int level1HighestScore, int level2HighestScore, int level3HighestScore) {
+    public User(String email, String name, String password, int level1HighestScore, int level2HighestScore, int level3HighestScore) {
         this.email = email;
         this.name = name;
         this.password = password;
@@ -41,7 +41,7 @@ public class Player {
 
     @Override
     public String toString() {
-        return "Player{" +
+        return "User{" +
             "email='" + email + '\'' +
             ", name='" + name + '\'' +
             ", password='" + password + '\'' +
@@ -112,7 +112,7 @@ public class Player {
 
     // testing
 //    public static void main(String[] args) throws IOException {
-//        Player p = new Player("anneliu@gmail.com", "like", "12323", 1,2, 3);
+//        User p = new User("anneliu@gmail.com", "like", "12323", 1,2, 3);
 //        System.out.println(p);
 //    }
 }

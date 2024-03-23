@@ -2,19 +2,18 @@ package backend;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 
 /**
- * LeaderBoard controller control the data in leadboard.
+ * LeaderBoard controller control the data in leaderboard.
  * how to use it: LeaderBoard.getSortedList(1); // sort by level1Level
  */
 public class LeaderBoard {
 
-    public static ArrayList<Player> getSortedList(int difficultyLevel) {
-        ArrayList<Player> sortedList = DataProcessing.readData();
+    public static ArrayList<User> getSortedList(int difficultyLevel) {
+        ArrayList<User> sortedList = DataProcessing.readData();
         System.out.println(sortedList.size());
         //testing
-//        for (Player p : sortedList) {
+//        for (User p : sortedList) {
 //            System.out.println(p.toString());
 //        }
 
@@ -30,7 +29,7 @@ public class LeaderBoard {
         });
 
         //testing
-//        for (Player p : sortedList) {
+//        for (User p : sortedList) {
 //            System.out.println(p.toString());
 //        }
 

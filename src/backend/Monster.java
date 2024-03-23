@@ -1,2 +1,5 @@
-package backend;public class Monster {
+package backend;
+
+public class Monster extends Player {
+
 }
