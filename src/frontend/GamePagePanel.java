@@ -17,7 +17,7 @@ public class GamePagePanel extends JPanel {
         add(Box.createVerticalGlue());
 
         // Timer Label
-        timeLabel = new JLabel("Time left: 60");
+        timeLabel = new JLabel("Time left: 60");    
         timeLabel.setAlignmentX(Component.CENTER_ALIGNMENT); // Center the label horizontally
         add(timeLabel);
 

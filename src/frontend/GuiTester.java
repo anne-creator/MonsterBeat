@@ -39,10 +39,13 @@ public class GuiTester implements ActionListener{
     String adminUsername = "admin";
     String adminEmail = "admin";
     String adminPassword = "admin";
+    
+    // used for Gameplay.summary
+    String activeEmail, activePassword;
 
     // (0) panelLogin
     JButton button0LogIn, button0NewUser, button0Exit;
-    JTextField textField0Username, textField0Password;
+    JTextField textField0Email, textField0Password;
 
     // (1) panelMain
     JButton button1Play, button1Tutorial, button1Leaderboard, button1Logout, button1Exit;
@@ -102,10 +105,10 @@ public class GuiTester implements ActionListener{
 
                     /////////////////////////////////////////////////////
 
-                    textField0Username = new JTextField(10);						// set input text fields
-                    textField0Username.setBounds(823, 183, 300, 60);
-                    textField0Username.addActionListener(this);
-                    panels[panelLogin].add(textField0Username);
+                    textField0Email = new JTextField(10);						// set input text fields
+                    textField0Email.setBounds(823, 183, 300, 60);
+                    textField0Email.addActionListener(this);
+                    panels[panelLogin].add(textField0Email);
 
                     textField0Password = new JTextField(10);
                     textField0Password.setBounds(823, 244, 300, 60);
@@ -128,7 +131,6 @@ public class GuiTester implements ActionListener{
                     button0Exit.setBounds(849, 509, 248, 80);
                     button0Exit.addActionListener(this);
                     panels[panelLogin].add(button0Exit);
-
 
                     /////////////////////////////////////////////////////
 
@@ -243,8 +245,6 @@ public class GuiTester implements ActionListener{
                     button3PostWin.addActionListener(this);
                     panels[panelPostWin].add(button3PostWin);
 
-
-
                     label3Header = new JLabel("GAME OVER");						// set text labels
                     label3Header.setBounds(200, 151, 80, 60);
                     panels[panelPostWin].add(label3Header);
@@ -287,16 +287,19 @@ public class GuiTester implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == button0LogIn) { 								// for this e.getSource(), we can use if button is in array,
             System.out.println("From Log In (0), to Main Screen (1).");		// and then use a dictionary to get the correct destination
-            String userInputUsername = textField0Username.getText();
+            String userInputEmail = textField0Email.getText();
             String userInputPassword = textField0Password.getText();
-            if (userInputUsername.equals(testEmail) && userInputPassword.equals(testPassword) || userInputUsername.equals(adminUsername)) {
+            if (userInputEmail.equals(testEmail) && userInputPassword.equals(testPassword) || userInputEmail.equals(adminUsername)) {
                 System.out.println("Login Successful.");
+                activeEmail = userInputEmail;
+                activePassword = userInputPassword;
+                
                 panels[panelLogin].setVisible(false);
                 panels[panelMain].setVisible(true);
             }
             else {
                 System.out.println("Login Unsuccessful.");
-                System.out.println(userInputUsername);
+                System.out.println(userInputEmail);
                 System.out.println(userInputPassword);
             }
         }
@@ -370,7 +373,7 @@ public class GuiTester implements ActionListener{
         for (int i = 0; i < NUMPANELS; i++) {
             panels[i].setVisible(false);
         }
-        Gameplay gameplay = new Gameplay(frame, panels[panelMain], panels[panelPostWin], panels[panelPostLose], difficulty);
+        Gameplay gameplay = new Gameplay(activeEmail, frame, panels[panelMain], panels[panelPostWin], panels[panelPostLose], difficulty);
         panelGameplay = gameplay.getPanelGameplay();
         panelGameplay.setVisible(true);
         //gameplay.checkQuestion();
