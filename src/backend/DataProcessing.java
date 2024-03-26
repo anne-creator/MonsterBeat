@@ -1,20 +1,16 @@
-package backend;
-
-import java.io.*;
-import java.util.*;
-
 /**
- * interacting with database
+ * all interactions with database
  * all method in DataProcessing is static method which could be used directly
- * using DataProcessing.methodname
+ *     using DataProcessing.[Method Name]
  *
  * Methods:
- *     addUser: append a user into UserInfo.csv
- *     readUserInfo: load UserInfo.csv, return an arrayList
- *     later: maybe a deletePlayer method
- *
-
+ *     addNewUser: append a new user into UserInfo.csv
+ *     loadUserInfo: load UserInfo.csv, return an arrayList
  */
+package backend;
+import java.io.FileWriter;
+import java.util.*;
+import java.io.IOException;
 public class DataProcessing {
     //input source file
     static String CSV_FILE = "src/database/UserInfo.csv";
@@ -24,7 +20,7 @@ public class DataProcessing {
      * @params a User
      * @throws IOException if there is an I/O error during saving
      */
-    public static void addUser(User user){
+    public static void addNewUser(User user){
         try (FileWriter fileWriter = new FileWriter(CSV_FILE, true)) {
             String playerString = user.getEmail() + ',' + user.getName() + ',' + user.getPassword() + ',' + user.getLevel1HighestScore() + ',' + user.getLevel2HighestScore() + ',' + user.getLevel3HighestScore() + "\n";
             System.out.println(playerString);
@@ -40,7 +36,7 @@ public class DataProcessing {
      * @return an Array list read from UserINfo.csv
      * @throws IOException if there is an I/O error during reading
      */
-    public static ArrayList<User> readUserInfo() {
+    public static ArrayList<User> loadUserInfo() {
         System.out.println("absolute path is: " + new File(CSV_FILE).getAbsolutePath() + "\n"); // print path
         ArrayList<User> players = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(CSV_FILE))) {
