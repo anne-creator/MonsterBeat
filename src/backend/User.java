@@ -109,7 +109,6 @@ public class User {
             setLevel3HighestScore(Math.max(getLevel3HighestScore(), newScore));
         }
     }
-
     // testing
 //    public static void main(String[] args) throws IOException {
 //        User p = new User("anneliu@gmail.com", "like", "12323", 1,2, 3);
