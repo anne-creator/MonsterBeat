@@ -1,4 +1,5 @@
-package backend;
+package frontend;
+
 import javax.swing.*;
 import java.awt.*;
 

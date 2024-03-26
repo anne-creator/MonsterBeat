@@ -89,7 +89,6 @@ public class Game {
         int mark = GameResult.calculateMarks(monster, character, 0);
 
         System.out.println("game ends and you have get: " + mark + " marks");
-
         System.out.println("the project stopped at: " + System.currentTimeMillis());
     }
 
@@ -99,12 +98,7 @@ public class Game {
     }
 
     private void attack(String question) {
-        // need to deal with async input from front end and dealt with run out of time situation
-        // at lease check time once a second
-        // send question input to frontend and get the answer
         int answer = 1; //get answer from user input
-
-
     }
     public static void main(String[] args) throws IOException {
         Character character1 = new Character();

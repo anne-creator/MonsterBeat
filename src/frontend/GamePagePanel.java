@@ -1,4 +1,6 @@
-package backend;
+package frontend;
+import frontend.MainApplication;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
