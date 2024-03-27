@@ -1,47 +1,59 @@
+/**
+ * all interactions with database
+ * all method in DataProcessing is static method which could be used directly
+ *     using DataProcessing.[Method Name]
+ *
+ * Methods:
+ *     addNewUser: append a new user into UserInfo.csv
+ *     loadUserInfo: load UserInfo.csv, return an arrayList
+ *     loadQuestionBank(int difficulty): load questionBank based on difficulty
+ *
+ * examples: (same with the user)
+ *     ArrayList<Question> questionBank = DataProcessing.loadQuestionBank(1);
+ *     for (Question question : questionBank) {
+ *             System.out.println(question.questionString);
+ *     }
+ *
+ */
 package backend;
-
 import java.io.*;
 import java.util.*;
 
-/**
- *
- * readData to a arrayList, addplayer to database, update player score to database
- * maybe a deletePlayer method later
- *
- * all method in DataProcessing is static method which could be used directly
- * using DataProcessing.methodname
- */
 public class DataProcessing {
-    //input source file
-    static String CSV_FILE = "src/database/UserInfo.csv";
+    // UserINfo file address
+    static String UserInfo = "src/database/UserInfo.csv";
+
+    // questionbank address with different levels
+    static String questionBank1Address = "src/database/questionbank1.csv";
+    static String questionBank2Address = "src/database/questionbank2.csv";
+    static String questionBank3Address = "src/database/questionbank3.csv";
 
     /**
-     * add a player's data to CSV file.
-     *
-     * @param player the player object to save
+     * append a user's data to CSV file.
+     * @params a User
      * @throws IOException if there is an I/O error during saving
      */
-    public static void addPlayer(User player){
-        try (FileWriter fileWriter = new FileWriter(CSV_FILE, true)) {
-            String playerString = player.getEmail() + ',' + player.getName() + ',' + player.getPassword() + ',' + player.getLevel1HighestScore() + ',' + player.getLevel2HighestScore() + ',' + player.getLevel3HighestScore() + "\n";
+    public static void addNewUser(User user){
+        try (FileWriter fileWriter = new FileWriter(UserInfo, true)) {
+            String playerString = user.getEmail() + ',' + user.getName() + ',' + user.getPassword() + ',' + user.getLevel1HighestScore() + ',' + user.getLevel2HighestScore() + ',' + user.getLevel3HighestScore() + "\n";
             System.out.println(playerString);
             fileWriter.append(playerString);
-            System.out.println("Data appended successfully.");
+            System.out.println("user read successfully.");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     /**
-     * read database source to a list of Players
-     *
-     * @return a list of player source
-     * catch IOException if there is an I/O error during reading
+     * read UserInfo.csv
+     * @return an Array list read from UserINfo.csv
+     * @throws IOException if there is an I/O error during reading
      */
-    public static ArrayList<User> readData() {
-        System.out.println("absolute path is: " + new File(CSV_FILE).getAbsolutePath() + "\n"); // print path
+    public static ArrayList<User> loadUserInfo() {
+        System.out.println("absolute path is: " + new File(UserInfo).getAbsolutePath() + "\n"); // print path
         ArrayList<User> players = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader(CSV_FILE))) {
+        try (
+            BufferedReader br = new BufferedReader(new FileReader(UserInfo))) {
             String line = br.readLine(); // Read header line
             while (line != null) {
                 String[] data = line.split(",");
@@ -63,10 +75,43 @@ public class DataProcessing {
         return players;
     }
 
+    public static ArrayList<Question> loadQuestionBank(int difficulty) {
+        //choose the question bank file based on difficulty
+        String sourcefile;
+        if (difficulty == 1) {
+            sourcefile = questionBank1Address;
+        }  else if (difficulty == 2) {
+            sourcefile = questionBank2Address;
+        } else {
+            sourcefile = questionBank3Address;
+        }
+
+        // load the questionbank file to a arrayList
+        ArrayList<Question> questionBank = new ArrayList<>();
+
+        try (
+            BufferedReader br = new BufferedReader(new FileReader(sourcefile))) {
+            String line = br.readLine(); // Read header line
+
+            while (line != null) {
+                String[] data = line.split(",");
+                if (data.length == 6) {
+                    Question question = new Question(Integer.parseInt(data[0]), data[1], data[2], data[3], data[4], data[5]);
+                    questionBank.add(question);
+                }
+                line = br.readLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return questionBank;
+    }
 //    public static void main(String[] args) {
-//        DataProcessing.addPlayer(new User("like@gmail.com", "like", "123", 333, 444, 555 ));
-//        DataProcessing.readData();
-//        DataProcessing.addPlayer(new User("dislike@gmail.com", "dislike", "678", 456, 234, 123 ));
-//        DataProcessing.readData();
+//        ArrayList<Question> questionBank = DataProcessing.loadQuestionBank(1);
+//        for (Question question : questionBank) {
+//                System.out.println(question.questionString);
+//        }
+//
 //    }
 }

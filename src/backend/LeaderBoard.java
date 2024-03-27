@@ -1,22 +1,23 @@
-package backend;
-
-import java.util.ArrayList;
-import java.util.Collections;
-
 /**
  * LeaderBoard controller control the data in leaderboard.
- * how to use it: LeaderBoard.getSortedList(1); // sort by level1Level
+ * how to use it sortedList static method
+ *   LeaderBoard.getSortedList(1); // sort by level1Level
+ *   @params int difficulty level
+ *   @return an sorted Arraylist that can be showed in order
+ *   a static class, no need to declare a LeaderBoard class first
  */
+package backend;
+import java.util.ArrayList;
+import java.util.Collections;
 public class LeaderBoard {
 
     public static ArrayList<User> getSortedList(int difficultyLevel) {
-        ArrayList<User> sortedList = DataProcessing.readData();
+        ArrayList<User> sortedList = DataProcessing.loadUserInfo(); //data from UserInfo.csv
         System.out.println(sortedList.size());
         //testing
 //        for (User p : sortedList) {
 //            System.out.println(p.toString());
 //        }
-
 
         Collections.sort(sortedList, (p1, p2) -> {
             if (difficultyLevel == 1) {
