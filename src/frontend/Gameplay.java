@@ -38,10 +38,13 @@ public class Gameplay implements ActionListener {
 	private String[] question1 = {"1", "question1: what is the sum of 5 and 10?", "15", "20", "25", "30"}; 		// answer is 1 
 	private String[] question2 = {"2", "question2: what is the product of 5 and 6?", "25", "30", "35", "40"};	// answer is 2
 	private String[] question3 = {"3", "question3: what is the capital of Canada?", "toronto", "paris", "ottawa", "vancouver"};
-	private String[] questionBuffer = {"4", "question4: what is the tallest mountain in the world?", "K2", "Lhotse", "makalu", "everest"};
-	//private String[] buffer = {"","","","","",""};
+	private String[] question4 = {"4", "question4: what is the tallest mountain in the world?", "K2", "Lhotse", "makalu", "everest"};
+	private String[] question5 = {"2", "question5: what is 60 - 39?", "12", "21", "39", "19"};
+	private String[] question6 = {"4", "question6: what is 124 / 4?", "44", "52", "43", "31"};
 	
-	private String[][] questions = {question1, question2, question3, questionBuffer};
+	private String[] buffer = {"","","","","",""};
+	
+	private String[][] questions = {question1, question2, question3, question4, question5, question6, buffer};
 	private int questionCounter = 0;
 	
 	// Timer
@@ -125,14 +128,14 @@ public class Gameplay implements ActionListener {
 	}
 	private void initEnemy() {								// create Class Enemy on layeredPane at 0 
 		try {
-			enemy = new Enemy("Easy");
+			enemy = new Enemy("Easy", 1);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
 		}
 		
 		spriteEnemy = enemy.getLabelEnemy();
-		spriteEnemy.setBounds(905, 340, 250, 350);
+		spriteEnemy.setBounds(905, 340, 284, 330);
 		spriteEnemy.setVisible(true);
 		layeredPane.add(spriteEnemy, 0);
 		

@@ -13,15 +13,42 @@ public class Enemy {
 	String difficulty;
 	int health = 3;
 	
-	public Enemy(String difficulty) throws IOException {
+	public Enemy(String difficulty, int num) throws IOException {
 		if(difficulty.equals("Easy")) {
-			
-			// creates the label
-			BufferedImage spriteEasyEnemy;										// game easy background
-			spriteEasyEnemy = ImageIO.read(new File("spriteEasyEnemy.png"));	// read in image
-			labelEnemy = new JLabel(new ImageIcon(spriteEasyEnemy));		// JLabel to hold image
-			//labelEnemy.setBounds(905, 350, 250, 350);	// (position, size)		
-			
+			if (num == 1) {
+				BufferedImage spriteEnemy;										
+				spriteEnemy = ImageIO.read(new File("src/img/monsters/m2.png"));	// read in image
+				labelEnemy = new JLabel(new ImageIcon(spriteEnemy));		// JLabel to hold image
+			}
+			else if (num == 2) {
+				BufferedImage spriteEnemy;										
+				spriteEnemy = ImageIO.read(new File("src/img/monsters/m4.png"));	// read in image
+				labelEnemy = new JLabel(new ImageIcon(spriteEnemy));		// JLabel to hold image
+			}
+		}
+		else if(difficulty.equals("Medium")) {
+			if (num == 1) {
+				BufferedImage spriteEnemy;										
+				spriteEnemy = ImageIO.read(new File("src/img/monsters/m1.png"));	// read in image
+				labelEnemy = new JLabel(new ImageIcon(spriteEnemy));		// JLabel to hold image
+			}
+			else if (num == 2) {
+				BufferedImage spriteEnemy;										
+				spriteEnemy = ImageIO.read(new File("src/img/monsters/m5.png"));	// read in image
+				labelEnemy = new JLabel(new ImageIcon(spriteEnemy));		// JLabel to hold image
+			}
+		}
+		if(difficulty.equals("Hard")) {
+			if (num == 1) {
+				BufferedImage spriteEnemy;										
+				spriteEnemy = ImageIO.read(new File("src/img/monsters/m3.png"));	// read in image
+				labelEnemy = new JLabel(new ImageIcon(spriteEnemy));		// JLabel to hold image
+			}
+			else if (num == 2) {
+				BufferedImage spriteEnemy;										
+				spriteEnemy = ImageIO.read(new File("src/img/monsters/m6.png"));	// read in image
+				labelEnemy = new JLabel(new ImageIcon(spriteEnemy));		// JLabel to hold image
+			}
 		}
 	}
 	

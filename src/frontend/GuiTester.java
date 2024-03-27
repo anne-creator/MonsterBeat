@@ -98,7 +98,7 @@ public class GuiTester implements ActionListener{
                     /////////////////////////////////////////////////////
 
                     BufferedImage spriteGameTitle;										// game logo
-                    spriteGameTitle = ImageIO.read(new File("spriteGameTitle.jpg"));		// read in image
+                    spriteGameTitle = ImageIO.read(new File("src/img/spriteGameTitle.jpg"));		// read in image
                     JLabel picLabel = new JLabel(new ImageIcon(spriteGameTitle));			// JLabel to hold image
                     picLabel.setBounds(20, 20, 700, 340);	// (position, size)				// set bounds
                     panels[panelLogin].add(picLabel);										// add to panel
