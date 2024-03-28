@@ -1,3 +1,4 @@
+package backend;
 import java.awt.*;
 //import java.awt.event.*;
 import java.awt.image.BufferedImage;
@@ -51,20 +52,20 @@ public class Enemy {
 			}
 		}
 	}
-	
+
 	public void gainHealth() {
 		health++;
 	}
 	public void loseHealth() {
 		health--;
 	}
-	
+
 	public JLabel getLabelEnemy() {
 		return labelEnemy;
 	}
 	public int getHealth() {
 		return health;
 	}
-	
-	
+
+
 }
