@@ -7,6 +7,7 @@ package backend;
 public abstract class Player {
     int livesLeft = 3;
     //need a img here
+    String img; //img address
     boolean ifDied = false;
 
     public int getLivesLeft() {
@@ -17,14 +18,14 @@ public abstract class Player {
         return ifDied;
     }
 
+    public String getImg() {return img;}
+    public void setImg(String img) {this.img = img;}
+
     public void setLivesLeft(int livesLeft) {
         this.livesLeft = livesLeft;
     }
     public void setIfDied(boolean ifDied) {
         this.ifDied = ifDied;
-    }
-    public void getAttacked(Player player) {
-        System.out.println("getAttacked");
     }
     public void loseALife() {
         if (this.livesLeft > 0) this.livesLeft--;

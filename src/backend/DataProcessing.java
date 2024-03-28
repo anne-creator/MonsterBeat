@@ -20,6 +20,7 @@ import java.io.*;
 import java.util.*;
 
 public class DataProcessing {
+
     // UserINfo file address
     static String UserInfo = "src/database/UserInfo.csv";
 
@@ -35,9 +36,9 @@ public class DataProcessing {
      */
     public static void addNewUser(User user){
         try (FileWriter fileWriter = new FileWriter(UserInfo, true)) {
-            String playerString = user.getEmail() + ',' + user.getName() + ',' + user.getPassword() + ',' + user.getLevel1HighestScore() + ',' + user.getLevel2HighestScore() + ',' + user.getLevel3HighestScore() + "\n";
-            System.out.println(playerString);
-            fileWriter.append(playerString);
+            String userString = user.getEmail() + ',' + user.getLevel1HighestScore() + ',' + user.getLevel2HighestScore() + ',' + user.getLevel3HighestScore() + "\n";
+            System.out.println(userString);
+            fileWriter.append(userString);
             System.out.println("user read successfully.");
         } catch (IOException e) {
             e.printStackTrace();
@@ -50,15 +51,15 @@ public class DataProcessing {
      * @throws IOException if there is an I/O error during reading
      */
     public static ArrayList<User> loadUserInfo() {
-        System.out.println("absolute path is: " + new File(UserInfo).getAbsolutePath() + "\n"); // print path
         ArrayList<User> players = new ArrayList<>();
+        System.out.println("absolute path is: " + new File(UserInfo).getAbsolutePath() + "\n"); // print path
         try (
             BufferedReader br = new BufferedReader(new FileReader(UserInfo))) {
             String line = br.readLine(); // Read header line
             while (line != null) {
                 String[] data = line.split(",");
-                if (data.length == 6) {
-                    User player = new User(data[0], data[1], data[2], Integer.parseInt(data[3]), Integer.parseInt(data[4]), Integer.parseInt(data[5]));
+                if (data.length == 4) {
+                    User player = new User(data[0], Integer.parseInt(data[1]), Integer.parseInt(data[2]), Integer.parseInt(data[3]));
                     players.add(player);
                 }
                 line = br.readLine();
@@ -66,13 +67,18 @@ public class DataProcessing {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        // testing
-//        for (User player : players) {
-//                System.out.println(player);
-//        }
-
         return players;
+    }
+
+    public static boolean findUserByEmail(String email) {
+        ArrayList<User> users = DataProcessing.loadUserInfo();
+        for (User user: users) {
+            if (user.getEmail().equals(email)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public static ArrayList<Question> loadQuestionBank(int difficulty) {
@@ -96,7 +102,12 @@ public class DataProcessing {
             while (line != null) {
                 String[] data = line.split(",");
                 if (data.length == 6) {
-                    Question question = new Question(Integer.parseInt(data[0]), data[1], data[2], data[3], data[4], data[5]);
+                    String[] optionList = new String[4];
+                    optionList[0] = data[2];
+                    optionList[1] = data[3];
+                    optionList[2] = data[4];
+                    optionList[3] = data[5];
+                    Question question = new Question(Integer.parseInt(data[0]), data[1], optionList);
                     questionBank.add(question);
                 }
                 line = br.readLine();
@@ -108,10 +119,7 @@ public class DataProcessing {
         return questionBank;
     }
 //    public static void main(String[] args) {
-//        ArrayList<Question> questionBank = DataProcessing.loadQuestionBank(1);
-//        for (Question question : questionBank) {
-//                System.out.println(question.questionString);
-//        }
+//        Boolean result = DataProcessing.findUserByEmail("ron@gmail.com");
 //
 //    }
 }

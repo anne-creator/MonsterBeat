@@ -16,20 +16,20 @@ public class User {
     private int level3HighestScore;
 
     /** constructor to create a new player without scores */
-    public User(String email, String name, String password)  {
+    public User(String email)  {
         this.email = email;
-        this.name = name;
-        this.password = password;
+//        this.name = name;
+//        this.password = password;
         this.level1HighestScore = 0;
         this.level2HighestScore = 0;
         this.level3HighestScore = 0;
     }
 
     /** constructor to create a new player with scores */
-    public User(String email, String name, String password, int level1HighestScore, int level2HighestScore, int level3HighestScore) {
+    public User(String email, int level1HighestScore, int level2HighestScore, int level3HighestScore) {
         this.email = email;
-        this.name = name;
-        this.password = password;
+//        this.name = name;
+//        this.password = password;
         this.level1HighestScore = level1HighestScore;
         this.level2HighestScore = level2HighestScore;
         this.level3HighestScore = level3HighestScore;
@@ -55,21 +55,13 @@ public class User {
         this.email = email;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
+//    public String getName() {
+//        return name;
+//    }
+//
+//    public void setName(String name) {
+//        this.name = name;
+//    }
 
     public int getLevel1HighestScore() {
         return level1HighestScore;

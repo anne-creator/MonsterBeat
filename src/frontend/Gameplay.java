@@ -1,3 +1,7 @@
+package frontend;
+import backend.Enemy;
+import backend.Heart;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
@@ -313,7 +317,6 @@ public class Gameplay implements ActionListener {
         panel.setVisible(false);
         panelPostLose.setVisible(true);
     }
-
 
 
     public JPanel getPanelGameplay() {
