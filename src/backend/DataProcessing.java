@@ -34,15 +34,16 @@ public class DataProcessing {
      * @params a User
      * @throws IOException if there is an I/O error during saving
      */
-    public static void addNewUser(User user){
+    public static boolean addNewUser(User user){
+        if (ifUserExsist(user.getEmail())) return false;
         try (FileWriter fileWriter = new FileWriter(UserInfo, true)) {
             String userString = user.getEmail() + ',' + user.getLevel1HighestScore() + ',' + user.getLevel2HighestScore() + ',' + user.getLevel3HighestScore() + "\n";
-            System.out.println(userString);
             fileWriter.append(userString);
-            System.out.println("user read successfully.");
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return true;
+
     }
 
     /**
@@ -70,7 +71,12 @@ public class DataProcessing {
         return players;
     }
 
-    public static boolean findUserByEmail(String email) {
+//    public boolean updateUserScore(String userEmail, int difficultyLevel, int score) {
+//
+//        return true;
+//    }
+
+    public static boolean ifUserExsist(String email) {
         ArrayList<User> users = DataProcessing.loadUserInfo();
         for (User user: users) {
             if (user.getEmail().equals(email)) {
@@ -79,6 +85,17 @@ public class DataProcessing {
         }
 
         return false;
+    }
+
+    public static User fineUserByEmail(String email) {
+        ArrayList<User> users = DataProcessing.loadUserInfo();
+        for (User user: users) {
+            if (user.getEmail().equals(email)) {
+                return user;
+            }
+        }
+
+        return null;
     }
 
     public static ArrayList<Question> loadQuestionBank(int difficulty) {

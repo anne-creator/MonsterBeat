@@ -16,7 +16,7 @@ import backend.Question;
 
 public class GamePanel extends JPanel {
     private Timer timer;
-    private int timeLeft = 180; // 60 seconds
+    private int timeLeft = 60; // 60 seconds
     private JLabel timeLabel;
     Game game;
     Question question;
@@ -125,7 +125,7 @@ public class GamePanel extends JPanel {
         characterPanel.setLayout(new BoxLayout(characterPanel, BoxLayout.Y_AXIS));
 
         // monsterHeartPanel
-        BufferedImage monsterHeartImg = ImageIO.read(new File("heart1.png"));
+        BufferedImage monsterHeartImg = ImageIO.read(new File("heart3.png"));
         monsterHeartPanel = new JLabel(new ImageIcon(monsterHeartImg));
         monsterHeartPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
 

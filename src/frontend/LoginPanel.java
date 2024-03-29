@@ -11,6 +11,7 @@ import java.io.IOException;
 
 
 public class LoginPanel extends JPanel {
+    public JPanel buttonPanel = new JPanel();
     public LoginPanel(MainApplication frame) throws IOException {
         JButton button0LogIn, button0NewUser, button0Exit;
         JTextField textField0UserEmail;
@@ -37,7 +38,6 @@ public class LoginPanel extends JPanel {
         add(Box.createRigidArea(new Dimension(0, 30))); // Increase this value to push buttons lower
 
         // Nested buttonPanel section for input field and  buttons
-        JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS)); // Or X_AXIS for horizontal arrangement
         buttonPanel.setPreferredSize(new Dimension(1220, 200));
         buttonPanel.setMinimumSize(new Dimension(1220, 200));
@@ -65,19 +65,22 @@ public class LoginPanel extends JPanel {
         buttonPanel.add(button0LogIn);
         // Action Listener for the button
         button0LogIn.addActionListener(e -> {
-            if (DataProcessing.findUserByEmail(textField0UserEmail.getText())) {
+            if (DataProcessing.ifUserExsist(textField0UserEmail.getText())) {
                 try {
                     frame.switchToMenuPanel(textField0UserEmail.getText());
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }
             } else {
-                frame.switchToLogRegisterPanel();
+                frame.switchToRegisterPanel();
             }
         });
 
         // create account button
         button0NewUser = new JButton("Create Account");
+        button0NewUser.addActionListener(e -> {
+                frame.switchToRegisterPanel();
+        });
         button0NewUser.setSize(40, 60);
         button0NewUser.setAlignmentX(Component.CENTER_ALIGNMENT);
         buttonPanel.add(button0NewUser);

@@ -1,5 +1,8 @@
 package frontend;
 
+import backend.DataProcessing;
+import backend.User;
+
 import javax.swing.*;
 import java.io.IOException;
 
@@ -12,8 +15,12 @@ public class RegisterPanel extends JPanel {
         JButton button2CreateAccount = new JButton("Create Account");        // set buttons
         button2CreateAccount.setBounds(849, 376, 248, 80);
         button2CreateAccount.addActionListener(e -> {
+            String userEmail = textField2Email.getText();
             try {
-                frame.switchToLogInPanel();
+                if (DataProcessing.addNewUser(new User(userEmail)))
+                    // if return true, sucessfully log in
+                    frame.switchToMenuPanel(userEmail);
+                else frame.switchToLogInPanel(userEmail); // user already exsit
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }

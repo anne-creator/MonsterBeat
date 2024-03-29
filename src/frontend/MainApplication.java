@@ -22,7 +22,16 @@ public class MainApplication extends JFrame  {
         validate();
         repaint();
     }
-    public void switchToLogRegisterPanel() {
+    public void switchToLogInPanel(String userEmail) throws IOException {
+        JLabel registerMessage = new JLabel(userEmail + " already registed, please login");
+        registerMessage.setAlignmentX(Component.CENTER_ALIGNMENT);
+        LoginPanel loginPanel = new LoginPanel(this);
+        loginPanel.buttonPanel.add(registerMessage);
+        setContentPane(loginPanel);
+        validate();
+        repaint();
+    }
+    public void switchToRegisterPanel() {
         JPanel registerPanel = new RegisterPanel(this);
         setContentPane(registerPanel);
         validate();
