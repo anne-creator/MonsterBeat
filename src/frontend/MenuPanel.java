@@ -63,6 +63,7 @@ public class MenuPanel extends JPanel {
 
         // Leaderboard button
         JButton leaderboardButton = new JButton("Leaderboard");
+        leaderboardButton.addActionListener(e -> frame.switchToLeaderBoardPanel());
         leaderboardButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         buttonPanel.add(leaderboardButton);
 
