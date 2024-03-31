@@ -101,14 +101,15 @@ public class MenuPanel2 extends JPanel {
         tutorialButton = new JButton("Tutorial");
         tutorialButton.setBounds(541, 476, 200, 50);
         layeredPane.add(tutorialButton, 0);
-        
-        // Leaderboard button
-        leaderboardButton = new JButton("Leaderboard");
-        leaderboardButton.setBounds(541, 531, 200, 50);
-        leaderboardButton.addActionListener(e -> frame.switchToLeaderBoardPanel());
-        layeredPane.add(leaderboardButton, 0);
 
-        // Logout Button
+		// Leaderboard button
+		leaderboardButton = new JButton("Leaderboard");
+		leaderboardButton.setBounds(541, 531, 200, 50);
+		leaderboardButton.addActionListener(e -> frame.switchToLeaderBoardPanel(userEmail)); // Pass userEmail as an argument
+		layeredPane.add(leaderboardButton, 0);
+
+
+		// Logout Button
         logoutButton = new JButton("Logout");
         logoutButton.setBounds(541, 586, 200, 50);
         logoutButton.addActionListener(e -> {

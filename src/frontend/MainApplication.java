@@ -59,12 +59,16 @@ public class MainApplication extends JFrame  {
         validate();
         repaint();
     }
-    public void switchToLeaderBoardPanel() {										// 
-        LeaderBoardPanel leaderboardPanel = new LeaderBoardPanel();
+    // In MainApplication class
+    public void switchToLeaderBoardPanel(String userEmail) {
+        // This method now expects the user's email.
+        // Ensure you have the user's email when calling this method.
+        LeaderBoardPanel leaderboardPanel = new LeaderBoardPanel(this, userEmail);
         setContentPane(leaderboardPanel);
         validate();
         repaint();
     }
+
 
     public void switchToGamePanel(String userEmail, int selectedDifficulty) throws IOException {
         JPanel gamePanel = new GamePanel(this, userEmail, selectedDifficulty);

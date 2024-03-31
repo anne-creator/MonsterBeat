@@ -8,15 +8,19 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import java.awt.*;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class LeaderBoardPanel extends JPanel {
     private JTable leaderboardTable;
     private JScrollPane scrollPane;
     private JComboBox<String> difficultyComboBox;
+    private JButton backButton;
     private String[] columnNames = {"Rank", "Email", "Score"};
+    private String userEmail; // Variable to store user's email
 
-    public LeaderBoardPanel() {
+    public LeaderBoardPanel(MainApplication mainApp, String userEmail) {
+        this.userEmail = userEmail;
         setLayout(new GridBagLayout()); // Use GridBagLayout for flexible positioning of components
         GridBagConstraints gbc = new GridBagConstraints();
 
@@ -29,37 +33,56 @@ public class LeaderBoardPanel extends JPanel {
         difficultyComboBox.setForeground(new Color(50, 50, 50));
 
         // Initialize JTable with DefaultTableModel
-        leaderboardTable = new JTable(new DefaultTableModel(null, columnNames));
+        leaderboardTable = new JTable(new DefaultTableModel(null, columnNames) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                // Make all cells uneditable
+                return false;
+            }
+        });
         styleTable(); // Apply custom styles to the table
 
         scrollPane = new JScrollPane(leaderboardTable);
         leaderboardTable.setFillsViewportHeight(true);
 
-        // Wrapping the components in a JPanel for better control over their layout
+        // Back Button to return to the previous menu
+        backButton = new JButton("Back");
+        backButton.setFont(new Font("Arial", Font.BOLD, 14));
+        backButton.addActionListener(e -> {
+            try {
+                mainApp.switchToMenuPanel(userEmail); // Use stored userEmail to switch panels
+            } catch (IOException ex) {
+                ex.printStackTrace(); // Replace with proper error handling
+            }
+        });
+
+        // Panel for the leaderboard and dropdown
         JPanel innerWrapperPanel = new JPanel(new BorderLayout());
         innerWrapperPanel.add(difficultyComboBox, BorderLayout.NORTH);
         innerWrapperPanel.add(scrollPane, BorderLayout.CENTER);
 
-        // Customizing the wrapper panel
-        innerWrapperPanel.setPreferredSize(new Dimension(600, 400)); // Set your desired size
+        // Set a preferred size for innerWrapperPanel if you want to make it smaller or bigger
+        innerWrapperPanel.setPreferredSize(new Dimension(600, 400));
         innerWrapperPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2)); // Border for the wrapper panel
 
-        // GridBagConstraint customization
+        // Add the back button to the bottom of the panel
+        innerWrapperPanel.add(backButton, BorderLayout.SOUTH);
+
+        // Configure GridBagConstraints for the inner panel
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.weightx = 1;
         gbc.weighty = 1;
         gbc.fill = GridBagConstraints.BOTH;
 
-        // Add the inner wrapper panel to the LeaderBoardPanel using GridBagConstraints
+        // Add innerWrapperPanel to the LeaderBoardPanel using GridBagConstraints
         add(innerWrapperPanel, gbc);
 
-        // Initially load the leaderboard with the Easy difficulty
+        // Load the leaderboard with the Easy difficulty initially
         updateLeaderboardTable(1);
     }
 
     private void styleTable() {
-        // Set the row height and custom renderers for the table
         leaderboardTable.setRowHeight(30);
         leaderboardTable.setFont(new Font("Serif", Font.PLAIN, 20));
         leaderboardTable.getTableHeader().setFont(new Font("SansSerif", Font.BOLD, 16));
@@ -69,7 +92,6 @@ public class LeaderBoardPanel extends JPanel {
         leaderboardTable.setBackground(new Color(240, 240, 240));
         leaderboardTable.setForeground(new Color(50, 50, 50));
 
-        // Center text in column header and cells
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
         leaderboardTable.setDefaultRenderer(Object.class, centerRenderer);
@@ -77,11 +99,9 @@ public class LeaderBoardPanel extends JPanel {
     }
 
     private void updateLeaderboardTable(int difficultyLevel) {
-        // Get the sorted list of users for the selected difficulty level
         ArrayList<User> users = LeaderBoard.getSortedList(difficultyLevel);
-
-        // Create a new table model with the updated data
         Object[][] data = new Object[users.size()][3];
+
         for (int i = 0; i < users.size(); i++) {
             User user = users.get(i);
             data[i][0] = i + 1; // Rank
@@ -94,17 +114,17 @@ public class LeaderBoardPanel extends JPanel {
             };
         }
 
-        DefaultTableModel model = new DefaultTableModel(data, columnNames);
-        leaderboardTable.setModel(model);
+        DefaultTableModel model = (DefaultTableModel) leaderboardTable.getModel();
+        model.setDataVector(data, columnNames);
         configureTableColumns();
     }
 
     private void configureTableColumns() {
-        // Set the preferred widths for the columns
         int[] columnWidths = {50, 200, 100};
+        TableColumn column;
         for (int i = 0; i < columnWidths.length; i++) {
             if (i < leaderboardTable.getColumnModel().getColumnCount()) {
-                TableColumn column = leaderboardTable.getColumnModel().getColumn(i);
+                column = leaderboardTable.getColumnModel().getColumn(i);
                 column.setPreferredWidth(columnWidths[i]);
             }
         }
