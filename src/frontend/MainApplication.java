@@ -8,7 +8,7 @@ import java.io.IOException;
 
 public class MainApplication extends JFrame  {
 
-    public MainApplication() throws IOException {
+    public MainApplication() throws IOException {									// 
         setTitle("Monster Beat"); // title of the game
         setSize(1280, 770);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -16,34 +16,40 @@ public class MainApplication extends JFrame  {
         setResizable(false);
         switchToLogInPanel();
     }
-    public void switchToLogInPanel() throws IOException {
-        JPanel loginPanel = new LoginPanel(this);
+    public void switchToLogInPanel() throws IOException {							// Frontend finished - 3/30 AL 
+        JPanel loginPanel = new LoginPanel2(this);			// This line for testing new title screen - 3/30 AL
         setContentPane(loginPanel);
         validate();
         repaint();
     }
-    public void switchToLogInPanel(String userEmail) throws IOException {
+    public void switchToLogInPanel(String userEmail) throws IOException {			// Now displays error message - 3/30 AL 
         JLabel registerMessage = new JLabel(userEmail + " already registed, please login");
         registerMessage.setAlignmentX(Component.CENTER_ALIGNMENT);
-        LoginPanel loginPanel = new LoginPanel(this);
-        loginPanel.buttonPanel.add(registerMessage);
-        setContentPane(loginPanel);
+        
+        //LoginPanel loginPanel = new LoginPanel(this);		// Cannot test here because of buttonPanel instance - 3/30 AL
+        //loginPanel.buttonPanel.add(registerMessage);
+        LoginPanel2 loginPanel2 = new LoginPanel2(this);		// Cannot test here because of buttonPanel instance - 3/30 AL
+        loginPanel2.registerErrorMessage(registerMessage);
+        
+        //setContentPane(loginPanel);
+        setContentPane(loginPanel2);
+        
         validate();
         repaint();
     }
-    public void switchToRegisterPanel() {
-        JPanel registerPanel = new RegisterPanel(this);
+    public void switchToRegisterPanel() throws IOException {						// 
+        JPanel registerPanel = new RegisterPanel2(this);
         setContentPane(registerPanel);
         validate();
         repaint();
     }
-    public void switchToMenuPanel(String userEmail) throws IOException {
-        JPanel menuPanel = new MenuPanel(this, userEmail);
+    public void switchToMenuPanel(String userEmail) throws IOException {			// Need to edit title image - 3/30 AL 
+        JPanel menuPanel = new MenuPanel2(this, userEmail);	// This line for testing new main menu screen - 3/30 AL
         setContentPane(menuPanel);
         validate();
         repaint();
     }
-    public void switchToResultPanel(Game game, int timeLeft) throws IOException {
+    public void switchToResultPanel(Game game, int timeLeft) throws IOException {	// 
         JLabel timeLeftLabel = new JLabel("Time left: " + timeLeft + " seconds");
         JPanel resultPanel = new ResultPanel(this, game, timeLeft);
         timeLeftLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -53,7 +59,7 @@ public class MainApplication extends JFrame  {
         validate();
         repaint();
     }
-    public void switchToLeaderBoardPanel() {
+    public void switchToLeaderBoardPanel() {										// 
         LeaderBoardPanel leaderboardPanel = new LeaderBoardPanel();
         setContentPane(leaderboardPanel);
         validate();

@@ -72,14 +72,24 @@ public class LoginPanel extends JPanel {
                     throw new RuntimeException(ex);
                 }
             } else {
-                frame.switchToRegisterPanel();
+                try {
+					frame.switchToRegisterPanel();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
             }
         });
 
         // create account button
         button0NewUser = new JButton("Create Account");
         button0NewUser.addActionListener(e -> {
-                frame.switchToRegisterPanel();
+                try {
+					frame.switchToRegisterPanel();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
         });
         button0NewUser.setSize(40, 60);
         button0NewUser.setAlignmentX(Component.CENTER_ALIGNMENT);
