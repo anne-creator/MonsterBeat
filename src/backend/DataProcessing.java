@@ -34,17 +34,17 @@ public class DataProcessing {
      * @params a User
      * @throws IOException if there is an I/O error during saving
      */
-    public static boolean addNewUser(User user){
-        if (ifUserExsist(user.getEmail())) return false;
-        try (FileWriter fileWriter = new FileWriter(UserInfo, true)) {
-            String userString = user.getEmail() + ',' + user.getLevel1HighestScore() + ',' + user.getLevel2HighestScore() + ',' + user.getLevel3HighestScore() + "\n";
-            fileWriter.append(userString);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return true;
-
-    }
+//    public static boolean addNewUser(User user){
+//        if (ifUserExsist(user.getEmail())) return false;
+//        try (FileWriter fileWriter = new FileWriter(UserInfo, true)) {
+//            String userString = user.getEmail() + ',' + user.getLevel1HighestScore() + ',' + user.getLevel2HighestScore() + ',' + user.getLevel3HighestScore() + "\n";
+//            fileWriter.append(userString);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        return true;
+//
+//    }
 
     /**
      * read UserInfo.csv
@@ -75,28 +75,43 @@ public class DataProcessing {
 //
 //        return true;
 //    }
-
-    public static boolean ifUserExsist(String email) {
-        ArrayList<User> users = DataProcessing.loadUserInfo();
-        for (User user: users) {
-            if (user.getEmail().equals(email)) {
-                return true;
-            }
-        }
-
-        return false;
+    public static void updateUsers(ArrayList<User> users) {
+    	Iterator<User> it = users.iterator();
+    	User person;
+    	try {
+    	    FileWriter fw = new FileWriter(UserInfo, false);
+    	    while (it.hasNext()) {
+    	    	person = it.next();
+    	    	fw.write(person.getEmail()+ ',' + person.getLevel1HighestScore() + ',' + person.getLevel2HighestScore() + ',' + person.getLevel3HighestScore() + "\n");
+    	    }
+    	    fw.close();
+    	} catch (Exception e) {
+    	    e.printStackTrace();
+    	}        
+		return;
     }
 
-    public static User fineUserByEmail(String email) {
-        ArrayList<User> users = DataProcessing.loadUserInfo();
-        for (User user: users) {
-            if (user.getEmail().equals(email)) {
-                return user;
-            }
-        }
-
-        return null;
-    }
+//    public static boolean ifUserExsist(String email) {
+//        ArrayList<User> users = DataProcessing.loadUserInfo();
+//        for (User user: users) {
+//            if (user.getEmail().equals(email)) {
+//                return true;
+//            }
+//        }
+//
+//        return false;
+//    }
+//
+//    public static User fineUserByEmail(String email) {
+//        ArrayList<User> users = DataProcessing.loadUserInfo();
+//        for (User user: users) {
+//            if (user.getEmail().equals(email)) {
+//                return user;
+//            }
+//        }
+//
+//        return null;
+//    }
 
     public static ArrayList<Question> loadQuestionBank(int difficulty) {
         //choose the question bank file based on difficulty

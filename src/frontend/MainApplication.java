@@ -1,5 +1,6 @@
 package frontend;
 
+import backend.Accounts;
 import backend.Game;
 
 import javax.swing.*;
@@ -14,6 +15,7 @@ public class MainApplication extends JFrame  {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null); // Center the window
         setResizable(false);
+        new Accounts();
         switchToLogInPanel();
     }
     public void switchToLogInPanel() throws IOException {							// Frontend finished - 3/30 AL 
@@ -50,12 +52,9 @@ public class MainApplication extends JFrame  {
         repaint();
     }
     public void switchToResultPanel(Game game, int timeLeft) throws IOException {	// 
-        JLabel timeLeftLabel = new JLabel("Time left: " + timeLeft + " seconds");
         JPanel resultPanel = new ResultPanel(this, game, timeLeft);
-        timeLeftLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        resultPanel.add(timeLeftLabel);
         setContentPane(resultPanel);
-        add(Box.createRigidArea(new Dimension(0, 100))); // Increase this value to push buttons lower
+        add(Box.createRigidArea(new Dimension(0, 800))); // Increase this value to push buttons lower
         validate();
         repaint();
     }
