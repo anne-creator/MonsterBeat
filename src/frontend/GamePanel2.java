@@ -56,7 +56,7 @@ public class GamePanel2 extends JPanel {
     JLabel monsterLabel, monsterHeartPanel, characterHeartPanel, labelSpritePlayer;
     int answerKey;
     Color cBlueBG = new Color(96, 96, 199);
-    
+
     JPanel timeLevelPanel;
     JLayeredPane layeredPane;
     /**
@@ -72,35 +72,35 @@ public class GamePanel2 extends JPanel {
     public GamePanel2(MainApplication frame, String userEmail, int difficultyLevel) throws IOException {
     	this.difficultyLevel = difficultyLevel;
     	this.userEmail = userEmail;
-        
+
     	// configure this class which extends jpanel
         setBounds(0, 0, 1280, 770);
 		setVisible(true);
 		setLayout(null);
     	setBackground(Color.red);
-    	
+
     	// initialise layered pane
         layeredPane = new JLayeredPane();
 	    layeredPane.setBounds(0, 0, 1280, 770);
 	    layeredPane.setVisible(true);
 	    layeredPane.setBackground(Color.GREEN);
 	    add(layeredPane);
-    	
+
 	    // initialise background
         BufferedImage spriteBackground;
-        if (difficultyLevel == 1) spriteBackground = ImageIO.read(new File("easyBackground.jpg"));				
-        else if (difficultyLevel == 2) spriteBackground = ImageIO.read(new File("mediumBackground.jpg"));				
-        else spriteBackground = ImageIO.read(new File("hardBackground.jpg"));				
+        if (difficultyLevel == 1) spriteBackground = ImageIO.read(new File("easyBackground.jpg"));
+        else if (difficultyLevel == 2) spriteBackground = ImageIO.read(new File("mediumBackground.jpg"));
+        else spriteBackground = ImageIO.read(new File("hardBackground.jpg"));
 		JLabel labelBackground = new JLabel(new ImageIcon(spriteBackground));			// JLabel to hold image
 		labelBackground.setBounds(0, 0, 1280, 770);		// (position, size)					// set bounds
 		layeredPane.add(labelBackground, 10);
-	    
+
 		JButton buttonReturnMenu = new JButton("Back to Menu"); 									// set button
-		buttonReturnMenu.setBounds(10, 10, 130, 40);	
+		buttonReturnMenu.setBounds(10, 10, 130, 40);
 		buttonReturnMenu.addActionListener(e -> {
 			try { sfx("soundDefault.wav"); }
-        	catch (IOException e2) { e2.printStackTrace(); }  
-			
+        	catch (IOException e2) { e2.printStackTrace(); }
+
             try {
 				frame.switchToMenuPanel(userEmail);
 			} catch (IOException e1) {
@@ -108,10 +108,10 @@ public class GamePanel2 extends JPanel {
 				e1.printStackTrace();
 			}
         });
-		layeredPane.add(buttonReturnMenu, 0);		
-		
+		layeredPane.add(buttonReturnMenu, 0);
+
 	    /////////////////////////////////////////////////////////
-    	
+
     	this.game = new Game(userEmail, difficultyLevel);
         this.frame = frame;
         Question question = game.generateQuestion();
@@ -127,7 +127,7 @@ public class GamePanel2 extends JPanel {
 		Border blackline = BorderFactory.createLineBorder(Color.black);
 		timeLevelPanel.setBorder(blackline);
 		layeredPane.add(timeLevelPanel, 0);
-        
+
         // Timer Label
         timeLabel = new JLabel("Time left: 60");
         Font labelFont = timeLabel.getFont();
@@ -138,7 +138,7 @@ public class GamePanel2 extends JPanel {
         JLabel level = new JLabel("Level " + difficultyLevel);
         level.setHorizontalAlignment(JLabel.RIGHT);
         timeLevelPanel.add(level);
-		
+
 
         // Question Panel ///////////////////////
         JPanel questionPanel = new JPanel();
@@ -146,22 +146,22 @@ public class GamePanel2 extends JPanel {
 		questionPanel.setVisible(true);
 		questionPanel.setLayout(null);
 		questionPanel.setBackground(cBlueBG);
-				
+
 		blackline = BorderFactory.createLineBorder(Color.black);
 		questionPanel.setBorder(blackline);
 		layeredPane.add(questionPanel, 0);
-        
+
 		questionLabel = new JLabel(question.questionString);			// add JLabel of question to the questionPanel
-		questionLabel.setBounds(30, 30, 920, 100);		
+		questionLabel.setBounds(30, 30, 920, 100);
 		questionLabel.setFont(new Font(labelFont.getName(), labelFont.getStyle(), 24));
 		questionPanel.add(questionLabel);
-		
+
 		JButton buttonPause = new JButton("Pause"); 									// set button
-		buttonPause.setBounds(10, 60, 130, 40);	
+		buttonPause.setBounds(10, 60, 130, 40);
 		buttonPause.addActionListener(e -> {
 			try { sfx("soundDefault.wav"); }
-        	catch (IOException e2) { e2.printStackTrace(); }  
-			
+        	catch (IOException e2) { e2.printStackTrace(); }
+
 			if (pause == 0) {
 				pauseTimers();
 	            buttonPause.setText("Unpause");
@@ -176,7 +176,7 @@ public class GamePanel2 extends JPanel {
 			}
         });
 		layeredPane.add(buttonPause, 0);
-		
+
 		int xpos = 20;
         for (int i = 0; i < 4; i++) {
             // set bounds and assign question option to the button
@@ -187,10 +187,10 @@ public class GamePanel2 extends JPanel {
 
             // when clicked
             int finalI = i;
-            buttonList[i].addActionListener(e -> {	
+            buttonList[i].addActionListener(e -> {
                 if (finalI == answerKey - 1) {
                 	try { sfx("soundBell.wav"); }
-                	catch (IOException e2) { e2.printStackTrace(); }  
+                	catch (IOException e2) { e2.printStackTrace(); }
                 	try {
                         System.out.println("answer right");
                         handleStatus(game.answerRight());
@@ -199,7 +199,7 @@ public class GamePanel2 extends JPanel {
                     }
                 } else {
                 	try { sfx("soundBuzz.wav"); }
-                	catch (IOException e2) { e2.printStackTrace(); }  
+                	catch (IOException e2) { e2.printStackTrace(); }
                     try {
                         System.out.println("answer wrong");
                         handleStatus(game.answerWrong());
@@ -209,35 +209,35 @@ public class GamePanel2 extends JPanel {
                 }
             });
         }
-        
+
         // Load images for Player and Enemy
         BufferedImage spritePlayer;
-        if (difficultyLevel == 1) spritePlayer = ImageIO.read(new File("c1.png"));								
-        else if (difficultyLevel == 2) spritePlayer = ImageIO.read(new File("c2.png"));	
+        if (difficultyLevel == 1) spritePlayer = ImageIO.read(new File("c1.png"));
+        else if (difficultyLevel == 2) spritePlayer = ImageIO.read(new File("c2.png"));
         else spritePlayer = ImageIO.read(new File("c3.png"));
         spritePlayer = resizeImage(spritePlayer, 250, 340);
         labelSpritePlayer = new JLabel(new ImageIcon(spritePlayer));
         labelSpritePlayer.setBounds(40, 390, 250, 340);
 		labelSpritePlayer.setVisible(true);
 		layeredPane.add(labelSpritePlayer, 0);
-        
+
 		BufferedImage spriteEnemy;
-        if (difficultyLevel == 1) spriteEnemy = ImageIO.read(new File("m2.png"));								
-        else if (difficultyLevel == 2) spriteEnemy = ImageIO.read(new File("m1.png"));	
-        else spriteEnemy = ImageIO.read(new File("m3.png"));	
+        if (difficultyLevel == 1) spriteEnemy = ImageIO.read(new File("m2.png"));
+        else if (difficultyLevel == 2) spriteEnemy = ImageIO.read(new File("m1.png"));
+        else spriteEnemy = ImageIO.read(new File("m3.png"));
         spriteEnemy = resizeImage(spriteEnemy, 300, 340);
         monsterLabel = new JLabel(new ImageIcon(spriteEnemy));
         monsterLabel.setBounds(890, 340, 300, 340);
         monsterLabel.setVisible(true);
 		layeredPane.add(monsterLabel, 0);
-		
+
 		// create heart labels
 		BufferedImage characterHeartImg = ImageIO.read(new File("heart3.png"));
         characterHeartPanel = new JLabel(new ImageIcon(characterHeartImg));
         characterHeartPanel.setBounds(174, 250, 113, 32);
         characterHeartPanel.setVisible(true);
         layeredPane.add(characterHeartPanel, 0);
-        
+
         BufferedImage monsterHeartImg = ImageIO.read(new File("heart3.png"));
         monsterHeartPanel = new JLabel(new ImageIcon(monsterHeartImg));
         monsterHeartPanel.setBounds(994, 250, 113, 32);
@@ -259,7 +259,7 @@ public class GamePanel2 extends JPanel {
         });
         timer.start(); // Start the countdown
         initAnimation();
-        
+
     }
 
     /**
@@ -275,6 +275,7 @@ public class GamePanel2 extends JPanel {
         System.out.println(status);
         if (status.equals("game end")) {
         	timeLevelPanel.setVisible(false);
+            timer.stop();
             frame.switchToResultPanel(game, timeLeft);//, userEmail);					// FROM MERGE 3/31
         } else if (status.equals("c1- change question")) { // character lost a heart
             question = game.generateQuestion();
@@ -317,7 +318,7 @@ public class GamePanel2 extends JPanel {
             if (difficultyLevel == 1) monsterOrg = ImageIO.read(new File("m4.png"));
             else if (difficultyLevel == 2) monsterOrg = ImageIO.read(new File("m5.png"));
             else monsterOrg = ImageIO.read(new File("m6.png"));
-            
+
             BufferedImage monsterImg = resizeImage(monsterOrg, 300, 340);
             monsterLabel.setIcon(new ImageIcon(monsterImg));
 
@@ -348,8 +349,8 @@ public class GamePanel2 extends JPanel {
 
       this.repaint();
     }
-    
-    public void sfx(String filename) throws IOException {				// plays filename for string 
+
+    public void sfx(String filename) throws IOException {				// plays filename for string
     	Clip clip;
 		try {
 			clip = AudioSystem.getClip();
@@ -361,9 +362,9 @@ public class GamePanel2 extends JPanel {
 		} catch (UnsupportedAudioFileException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} 
+		}
     }
-    
+
     private void initAnimation() {
     	// Timer config for animation
         timer2 = new Timer(500, new ActionListener() {
@@ -382,7 +383,7 @@ public class GamePanel2 extends JPanel {
     	timer.start();
     	timer2.start();
     }
-    
+
     private void animate(JLabel labelPlayer, JLabel labelEnemy) {		// sequences the title screen animation
     	if (animationTracker == 0) {
     		moveNE(labelPlayer);
@@ -401,53 +402,53 @@ public class GamePanel2 extends JPanel {
     		moveNW(labelEnemy);
     	}
     }
-    
-    private void moveNE(JLabel image) {									// moves JLabel 50 px in NE 
+
+    private void moveNE(JLabel image) {									// moves JLabel 50 px in NE
     	int newX = getX(image);
     	int newY = getY(image);
-    	
+
     	newX += 50;
     	newY -= 50;
-    	
+
     	image.setLocation(newX, newY);
     }
-    private void moveSE(JLabel image) {									// moves JLabel 50 px in SE 
+    private void moveSE(JLabel image) {									// moves JLabel 50 px in SE
     	int newX = getX(image);
     	int newY = getY(image);
-    	
+
     	newX += 50;
     	newY += 50;
-    	
+
     	image.setLocation(newX, newY);
     }
-    private void moveSW(JLabel image) {									// moves JLabel 50 px in SW 
+    private void moveSW(JLabel image) {									// moves JLabel 50 px in SW
     	int newX = getX(image);
     	int newY = getY(image);
-    	
+
     	newX -= 50;
     	newY += 50;
-    	
+
     	image.setLocation(newX, newY);
     }
-    private void moveNW(JLabel image) {									// moves JLabel 50 px in NW 
+    private void moveNW(JLabel image) {									// moves JLabel 50 px in NW
     	int newX = getX(image);
     	int newY = getY(image);
-    	
+
     	newX -= 50;
     	newY -= 50;
-    	
+
     	image.setLocation(newX, newY);
     }
-    
-    private int getX(JLabel image) {									// get x pos of JLabel 
+
+    private int getX(JLabel image) {									// get x pos of JLabel
     	Point location = image.getLocation();
     	return location.x;
     }
-    private int getY(JLabel image) {									// get y pos of JLabel 
+    private int getY(JLabel image) {									// get y pos of JLabel
     	Point location = image.getLocation();
     	return location.y;
     }
-    
+
 
     /*/ used for generate both character and monster
     private JPanel createPlayerPanel(String labelText) throws IOException {

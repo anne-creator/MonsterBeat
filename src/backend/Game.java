@@ -54,7 +54,7 @@ public class Game {
         this.character = generateCharacter(difficultyLevel);
         this.difficultyLevel = difficultyLevel;
         this.questionBank = DataProcessing.loadQuestionBank(difficultyLevel);
-//        Collections.shuffle(questionBank); //shuffle the question bank
+        Collections.shuffle(questionBank); //shuffle the question bank
     }
 
 //    private Question getNextQuestionString(int questionCounter) {
@@ -105,19 +105,21 @@ public class Game {
      */
 
     public int calculateMarks(int timeLeft) {
-        GameResult result = new GameResult();
+        int result = 0;
         // if character survive
         if (!character.getIfDied()) {
             if (timeLeft > 0) { // if we still have time left, we killed all monsters and get 6 question right
-                return timeLeft * 5 + character.livesLeft * 50 + 6 * 30;
+                result =  timeLeft * 5 + character.livesLeft * 50 + 6 * 30;
             } else { // no time left, we check monsters to get how many questions do I get it right
                 int questionAnswered = calculateQuestions(monsters);
-                return character.livesLeft * 50 + questionAnswered * 30;
+                result =  character.livesLeft * 50 + questionAnswered * 30;
             }
         } else { // character died
             int questionAnswered = calculateQuestions(monsters);
-            return questionAnswered * 30 - timeLeft;
+            result = questionAnswered * 30 - timeLeft;
         }
+
+        return Math.max(0, result);
     }
     /**
      * Calculates the number of questions correctly answered based on the monsters' health.
@@ -179,10 +181,4 @@ public class Game {
 
         return character;
     }
-//    public static void main(String[] args) throws IOException {
-//        Character character1 = new Character();
-//        Monster monster1 = new Monster();
-//        Game game = new Game(character1, monsters,1);
-//        game.start();
-//    }
 }
