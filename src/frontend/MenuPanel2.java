@@ -3,6 +3,10 @@ package frontend;
 import backend.DataProcessing;
 
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -74,7 +78,10 @@ public class MenuPanel2 extends JPanel {
         // Start button
         startButton = new JButton("Start");													// Start Button
         startButton.addActionListener(e -> {
-            try {
+        	try { sfx("soundDefault.wav"); }
+        	catch (IOException e2) { e2.printStackTrace(); }  
+        	
+        	try {
                 System.out.println("pass difficulty Level " + selectedDifficulty); 			// TESTER
                 frame.switchToGamePanel(userEmail, selectedDifficulty);
             } catch (IOException ex) {
@@ -101,11 +108,21 @@ public class MenuPanel2 extends JPanel {
         tutorialButton = new JButton("Tutorial");
         tutorialButton.setBounds(541, 476, 200, 50);
         layeredPane.add(tutorialButton, 0);
+        tutorialButton.addActionListener(e ->  {
+			try { sfx("soundDefault.wav"); }
+        	catch (IOException e2) { e2.printStackTrace(); }  
+			// switch to tutorial screen
+		});
+        
 
 		// Leaderboard button
 		leaderboardButton = new JButton("Leaderboard");
 		leaderboardButton.setBounds(541, 531, 200, 50);
-		leaderboardButton.addActionListener(e -> frame.switchToLeaderBoardPanel(userEmail)); // Pass userEmail as an argument
+		leaderboardButton.addActionListener(e ->  {
+			try { sfx("soundDefault.wav"); }
+        	catch (IOException e2) { e2.printStackTrace(); }  
+			frame.switchToLeaderBoardPanel(userEmail); 
+		}); // Pass userEmail as an argument
 		layeredPane.add(leaderboardButton, 0);
 
 
@@ -113,6 +130,9 @@ public class MenuPanel2 extends JPanel {
         logoutButton = new JButton("Logout");
         logoutButton.setBounds(541, 586, 200, 50);
         logoutButton.addActionListener(e -> {
+        	try { sfx("soundDefault.wav"); }
+        	catch (IOException e2) { e2.printStackTrace(); }  
+        	
 			try {
 				frame.switchToLogInPanel();
 			} catch (IOException e1) {
@@ -124,7 +144,11 @@ public class MenuPanel2 extends JPanel {
         // Exit Button
         exitButton = new JButton("Exit");
         exitButton.setBounds(541, 641, 200, 50);
-        exitButton.addActionListener(e -> System.exit(0));
+        exitButton.addActionListener(e -> { 
+        	System.exit(0); 
+        	try { sfx("soundDefault.wav"); }
+        	catch (IOException e2) { e2.printStackTrace(); }  
+        });
         layeredPane.add(exitButton, 0);
         
         //////////////////////////////////////////////////////////
@@ -139,6 +163,21 @@ public class MenuPanel2 extends JPanel {
         timer.start(); // Start the countdown
 
     } // constructor end
+    
+    public void sfx(String filename) throws IOException {
+    	Clip clip;
+		try {
+			clip = AudioSystem.getClip();
+			clip.open(AudioSystem.getAudioInputStream(new File(filename)));
+	        clip.start();
+		} catch (LineUnavailableException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UnsupportedAudioFileException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+    }
     
     private void animate(JLabel labelPlayer, JLabel labelEnemy) {		// sequences the title screen animation
     	if (animationTracker == 0) {

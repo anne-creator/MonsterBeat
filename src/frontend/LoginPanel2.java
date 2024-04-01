@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-
+import javax.sound.sampled.*;
 
 public class LoginPanel2 extends JPanel {
     //public JPanel buttonPanel = new JPanel();
@@ -82,6 +82,13 @@ public class LoginPanel2 extends JPanel {
         button0LogIn.setBounds(541, 531, 200, 50);
         layeredPane.add(button0LogIn, 0);
         button0LogIn.addActionListener(e -> {      					 						// Action Listener for the button
+        	try {
+				sfx("soundDefault.wav");
+			} catch (IOException e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+			}
+        	
         	String userEmail = textField0UserEmail.getText();
         	if (Accounts.exist(userEmail)) {
                 try {
@@ -103,11 +110,17 @@ public class LoginPanel2 extends JPanel {
         button0NewUser = new JButton("Create Account");
         button0NewUser.setBounds(541, 586, 200, 50);
         button0NewUser.addActionListener(e -> {
-                try {
-					frame.switchToRegisterPanel();
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
+        	try {
+				sfx("soundDefault.wav");
+			} catch (IOException e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+			}    
+        	try {
+				frame.switchToRegisterPanel();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
         });
         layeredPane.add(button0NewUser, 0);
 
@@ -116,7 +129,13 @@ public class LoginPanel2 extends JPanel {
         button0Exit.setBounds(541, 641, 200, 50);
         layeredPane.add(button0Exit, 0);
         button0Exit.addActionListener(e -> {      		// Action Listener for the button
-            System.exit(0);
+        	try {
+				sfx("soundDefault.wav");
+			} catch (IOException e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+			}  
+        	System.exit(0);
         });
         
         //////////////////////////////////////////////////////////
@@ -138,6 +157,21 @@ public class LoginPanel2 extends JPanel {
         //errorMessage.setAlignmentX(Component.CENTER_ALIGNMENT);
     	layeredPane.add(errorMessage, 0);
     }
+    public void sfx(String filename) throws IOException {
+    	Clip clip;
+		try {
+			clip = AudioSystem.getClip();
+			clip.open(AudioSystem.getAudioInputStream(new File(filename)));
+	        clip.start();
+		} catch (LineUnavailableException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UnsupportedAudioFileException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+    }
+    
     
     private void animate(JLabel labelPlayer, JLabel labelEnemy) {		// sequences the title screen animation
     	if (animationTracker == 0) {

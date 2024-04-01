@@ -4,6 +4,10 @@ import backend.Accounts;
 import backend.User;
 
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 
 import java.awt.Color;
@@ -83,6 +87,13 @@ public class RegisterPanel2 extends JPanel {
         button2CreateAccount.setBounds(541, 531, 200, 50);
         layeredPane.add(button2CreateAccount, 0);
         button2CreateAccount.addActionListener(e -> {      					 						// Action Listener for the button
+        	try {
+				sfx("soundDefault.wav");
+			} catch (IOException e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+			}  
+        	
         	String userEmail = textField2Email.getText();
             try {
             	if (Accounts.exist(userEmail)) {
@@ -103,7 +114,14 @@ public class RegisterPanel2 extends JPanel {
         button2ReturnToLogin.setBounds(541, 586, 200, 50);
         layeredPane.add(button2ReturnToLogin, 0);
         button2ReturnToLogin.addActionListener(e -> {
-            try {
+        	try {
+				sfx("soundDefault.wav");
+			} catch (IOException e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+			}  
+        	
+        	try {
                 frame.switchToLogInPanel();
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
@@ -115,7 +133,13 @@ public class RegisterPanel2 extends JPanel {
         button2Exit.setBounds(541, 641, 200, 50);
         layeredPane.add(button2Exit, 0);
         button2Exit.addActionListener(e -> {      		// Action Listener for the button
-            System.exit(0);
+        	try {
+				sfx("soundDefault.wav");
+			} catch (IOException e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+			}  
+        	System.exit(0);
         });
         
         //////////////////////////////////////////////////////////
@@ -130,6 +154,21 @@ public class RegisterPanel2 extends JPanel {
         timer.start(); // Start the countdown
         
     } // constructor end
+    
+    public void sfx(String filename) throws IOException {
+    	Clip clip;
+		try {
+			clip = AudioSystem.getClip();
+			clip.open(AudioSystem.getAudioInputStream(new File(filename)));
+	        clip.start();
+		} catch (LineUnavailableException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UnsupportedAudioFileException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+    }
     
     private void animate(JLabel labelPlayer, JLabel labelEnemy) {		// sequences the title screen animation
     	if (animationTracker == 0) {

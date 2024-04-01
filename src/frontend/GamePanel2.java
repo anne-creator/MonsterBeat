@@ -1,6 +1,10 @@
 package frontend;
 
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import javax.swing.border.Border;
 
@@ -67,6 +71,9 @@ public class GamePanel2 extends JPanel {
 		JButton buttonPause = new JButton("Back to Menu"); 									// set button
 		buttonPause.setBounds(10, 10, 130, 40);	
 		buttonPause.addActionListener(e -> {
+			try { sfx("soundDefault.wav"); }
+        	catch (IOException e2) { e2.printStackTrace(); }  
+			
             try {
 				frame.switchToMenuPanel(userEmail);
 			} catch (IOException e1) {
@@ -132,15 +139,19 @@ public class GamePanel2 extends JPanel {
 
             // when clicked
             int finalI = i;
-            buttonList[i].addActionListener(e -> {
+            buttonList[i].addActionListener(e -> {	
                 if (finalI == answerKey - 1) {
-                    try {
+                	try { sfx("soundBell.wav"); }
+                	catch (IOException e2) { e2.printStackTrace(); }  
+                	try {
                         System.out.println("answer right");
                         handleStatus(game.answerRight());
                     } catch (IOException ex) {
                         throw new RuntimeException("error at game.answerRight method");
                     }
                 } else {
+                	try { sfx("soundBuzz.wav"); }
+                	catch (IOException e2) { e2.printStackTrace(); }  
                     try {
                         System.out.println("answer wrong");
                         handleStatus(game.answerWrong());
@@ -280,6 +291,21 @@ public class GamePanel2 extends JPanel {
         }
 
       this.repaint();
+    }
+    
+    public void sfx(String filename) throws IOException {				// plays filename for string 
+    	Clip clip;
+		try {
+			clip = AudioSystem.getClip();
+			clip.open(AudioSystem.getAudioInputStream(new File(filename)));
+	        clip.start();
+		} catch (LineUnavailableException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UnsupportedAudioFileException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
     }
     
     private void animate(JLabel labelPlayer, JLabel labelEnemy) {		// sequences the title screen animation
