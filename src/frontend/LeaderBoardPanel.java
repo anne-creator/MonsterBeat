@@ -3,12 +3,17 @@ package frontend;
 import backend.LeaderBoard;
 import backend.User;
 
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import java.awt.*;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -42,6 +47,9 @@ public class LeaderBoardPanel extends JPanel {
         backButton = new JButton("Back");
         configureBackButton(); // Apply custom styles and place the back button
         backButton.addActionListener(e -> {
+        	try { sfx("soundDefault.wav"); }
+        	catch (IOException e2) { e2.printStackTrace(); }
+        	
             try {
                 mainApp.switchToMenuPanel(userEmail);
             } catch (IOException ex) {
@@ -131,4 +139,19 @@ public class LeaderBoardPanel extends JPanel {
             }
         }
     }
-}
+    
+    public void sfx(String filename) throws IOException {				// plays filename for string 
+    	Clip clip;
+		try {
+			clip = AudioSystem.getClip();
+			clip.open(AudioSystem.getAudioInputStream(new File(filename)));
+	        clip.start();
+		} catch (LineUnavailableException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UnsupportedAudioFileException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+    }
+} // class end
