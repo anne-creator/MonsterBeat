@@ -21,7 +21,6 @@ public class ResultPanel extends JPanel {
 
     private JTextArea resultTextArea;
 
-    /*
     public ResultPanel(MainApplication frame, Game game, int timeLeft, String userEmail) throws IOException {
         int score = game.calculateMarks(timeLeft);
         // Creating the text area for displaying results
@@ -46,7 +45,7 @@ public class ResultPanel extends JPanel {
 			}
         });
 		add(buttonPause, 0);
-    } */
+    } 
 	private int marks;
     public JPanel buttonPanel = new JPanel();
     public ResultPanel(MainApplication frame, Game game, int timeLeft) throws IOException {
