@@ -21,6 +21,21 @@ import java.awt.event.KeyListener;
 import backend.Game;
 import backend.Question;
 
+/**
+ * Represents the main gameplay panel in the game, where players interact with questions,
+ * answer them, and see animations based on their progress. This panel manages the display
+ * of the current question, the timer, player and enemy health, and handles user input for
+ * answering questions. It dynamically updates based on the game's state, including showing
+ * different backgrounds and characters according to the selected difficulty level.
+ *
+ * The panel includes mechanisms to pause and resume the game, animations to enhance visual
+ * appeal, and sound effects for user actions and game events. It integrates closely with the
+ * {@code Game} backend class to manage the gameplay logic, including question generation,
+ * time management, and tracking the health of both the player and the enemy.
+ *
+ * @see backend.Game
+ * @see backend.Question
+ */
 
 public class GamePanel2 extends JPanel {
     private Timer timer, timer2;
@@ -44,7 +59,16 @@ public class GamePanel2 extends JPanel {
     
 
     JLayeredPane layeredPane;
-    
+    /**
+     * Constructs a game panel including the game's background, question panel, and UI elements like buttons and labels.
+     * Initializes the game with the given difficulty level and user information.
+     *
+     * @param frame The main application frame to allow navigation between panels.
+     * @param userEmail The email of the current user to customize the game session.
+     * @param difficultyLevel The difficulty level selected for the new game session.
+     * @throws IOException If there's an issue loading the images or sound files.
+     */
+
     public GamePanel2(MainApplication frame, String userEmail, int difficultyLevel) throws IOException {
     	this.difficultyLevel = difficultyLevel;
     	this.userEmail = userEmail;
@@ -238,7 +262,15 @@ public class GamePanel2 extends JPanel {
         
     }
 
-    // handle button click
+    /**
+     * Handles the game's status updates based on the player's answers to questions,
+     * including changing the game state and updating UI elements accordingly.
+     *
+     * @param status The current status of the game, indicating whether a question was answered correctly,
+     *               a heart was lost, or the game has ended.
+     * @throws IOException If there's an issue updating the panel due to file loading.
+     */
+
     public void handleStatus(String status) throws IOException {
         System.out.println(status);
         if (status.equals("game end")) {
@@ -259,7 +291,16 @@ public class GamePanel2 extends JPanel {
         System.out.println("monster1 life: " + game.monster1.getLivesLeft() + " mosnter2 life: " + game.monster2.getLivesLeft() + " character life: " + game.character.getLivesLeft());
     }
 
-    // repaint panel
+    /**
+     * Updates the game panel with a new question, and potentially updates the monster image
+     * and health based on the game state.
+     *
+     * @param question The new question to display on the game panel.
+     * @param changeMonster Indicates whether the monster image should be changed.
+     * @param heartChangingPlayer Specifies which character's heart (player or monster) should be updated.
+     * @throws IOException If there's an issue loading new images for the panel.
+     */
+
     public void updateGamePanel(Question question, Boolean changeMonster, String heartChangingPlayer) throws IOException {
         this.answerKey = question.answerKey;
         System.out.println("questionstring: " + question.questionString + "  answerKey: " + question.answerKey);
@@ -429,6 +470,16 @@ public class GamePanel2 extends JPanel {
 
         return characterPanel;
     } */
+
+    /**
+     * Resizes a BufferedImage to the specified dimensions.
+     *
+     * @param originalImage The original BufferedImage to be resized.
+     * @param targetWidth The desired width of the resized image.
+     * @param targetHeight The desired height of the resized image.
+     * @return A new BufferedImage object of the specified size.
+     */
+
     public static BufferedImage resizeImage(BufferedImage originalImage, int targetWidth, int targetHeight) {
         Image resultingImage = originalImage.getScaledInstance(targetWidth, targetHeight, Image.SCALE_SMOOTH);
         BufferedImage outputImage = new BufferedImage(targetWidth, targetHeight, BufferedImage.TYPE_INT_ARGB);
