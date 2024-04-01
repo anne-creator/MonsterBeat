@@ -9,8 +9,19 @@
 package backend;
 import java.util.ArrayList;
 import java.util.Collections;
+/**
+ * Controls and manages leaderboard data. This static class provides functionality
+ * to retrieve a sorted list of users based on their scores in different difficulty levels.
+ */
 public class LeaderBoard {
-
+    /**
+     * Retrieves a sorted list of users based on their highest scores for a given difficulty level.
+     * The sorting is in descending order, with higher scores appearing first.
+     *
+     * @param difficultyLevel The difficulty level by which to sort the leaderboard.
+     *                        Valid levels are 1 (Easy), 2 (Medium), and 3 (Hard).
+     * @return A sorted ArrayList of User objects, sorted by their score in the specified difficulty.
+     */
     public static ArrayList<User> getSortedList(int difficultyLevel) {
         ArrayList<User> sortedList = DataProcessing.loadUserInfo(); //data from UserInfo.csv
         System.out.println(sortedList.size());
