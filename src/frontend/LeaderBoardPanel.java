@@ -3,16 +3,12 @@ package frontend;
 import backend.LeaderBoard;
 import backend.User;
 
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import java.awt.*;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -21,78 +17,51 @@ public class LeaderBoardPanel extends JPanel {
     private JScrollPane scrollPane;
     private JComboBox<String> difficultyComboBox;
     private JButton backButton;
-    private String[] columnNames = {"Rank", "Email", "Score"};
+    private String[] columnNames = {"Rank", "Name", "Score"};
     private String userEmail; // Variable to store user's email
 
     public LeaderBoardPanel(MainApplication mainApp, String userEmail) {
         this.userEmail = userEmail;
-        setLayout(new GridBagLayout()); // Use GridBagLayout for flexible positioning of components
-        GridBagConstraints gbc = new GridBagConstraints();
+        setLayout(new BorderLayout(10, 10)); // Use BorderLayout for simplicity
+        setBackground(new Color(230, 230, 230)); // Neutral background color
 
         // Dropdown for selecting difficulty level
-        String[] difficulties = {"Easy", "Medium", "Hard"};
-        difficultyComboBox = new JComboBox<>(difficulties);
-        difficultyComboBox.addActionListener(e -> updateLeaderboardTable(difficultyComboBox.getSelectedIndex() + 1));
+        difficultyComboBox = new JComboBox<>(new String[]{"Easy", "Medium", "Hard"});
         difficultyComboBox.setFont(new Font("Arial", Font.BOLD, 14));
-        difficultyComboBox.setBackground(new Color(255, 255, 255));
-        difficultyComboBox.setForeground(new Color(50, 50, 50));
+        difficultyComboBox.addActionListener(e -> updateLeaderboardTable(difficultyComboBox.getSelectedIndex() + 1));
+        add(difficultyComboBox, BorderLayout.NORTH);
 
         // Initialize JTable with DefaultTableModel
-        leaderboardTable = new JTable(new DefaultTableModel(null, columnNames) {
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                // Make all cells uneditable
-                return false;
-            }
-        });
-        styleTable(); // Apply custom styles to the table
-
+        leaderboardTable = new JTable(new DefaultTableModel(null, columnNames));
+        leaderboardTable.setEnabled(false); // Disable editing
         scrollPane = new JScrollPane(leaderboardTable);
-        leaderboardTable.setFillsViewportHeight(true);
+        styleTable(); // Apply custom styles to the table after initializing scrollPane
+        add(scrollPane, BorderLayout.CENTER);
 
         // Back Button to return to the previous menu
         backButton = new JButton("Back");
-        backButton.setFont(new Font("Arial", Font.BOLD, 14));
+        configureBackButton(); // Apply custom styles and place the back button
         backButton.addActionListener(e -> {
-        	try { sfx("soundDefault.wav"); }
-        	catch (IOException e2) { e2.printStackTrace(); }
-        	
             try {
-                mainApp.switchToMenuPanel(userEmail); // Use stored userEmail to switch panels
+                mainApp.switchToMenuPanel(userEmail);
             } catch (IOException ex) {
-                ex.printStackTrace(); // Replace with proper error handling
+                throw new RuntimeException(ex);
             }
         });
-
-        // Panel for the leaderboard and dropdown
-        JPanel innerWrapperPanel = new JPanel(new BorderLayout());
-        innerWrapperPanel.add(difficultyComboBox, BorderLayout.NORTH);
-        innerWrapperPanel.add(scrollPane, BorderLayout.CENTER);
-
-        // Set a preferred size for innerWrapperPanel if you want to make it smaller or bigger
-        innerWrapperPanel.setPreferredSize(new Dimension(600, 400));
-        innerWrapperPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2)); // Border for the wrapper panel
-
-        // Add the back button to the bottom of the panel
-        innerWrapperPanel.add(backButton, BorderLayout.SOUTH);
-
-        // Configure GridBagConstraints for the inner panel
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.weightx = 1;
-        gbc.weighty = 1;
-        gbc.fill = GridBagConstraints.BOTH;
-
-        // Add innerWrapperPanel to the LeaderBoardPanel using GridBagConstraints
-        add(innerWrapperPanel, gbc);
 
         // Load the leaderboard with the Easy difficulty initially
         updateLeaderboardTable(1);
     }
 
     private void styleTable() {
+        // Ensure scrollPane is not null
+        if (scrollPane == null) {
+            throw new IllegalStateException("scrollPane must be initialized before styling the table.");
+        }
+
+        // Set custom styles for table
         leaderboardTable.setRowHeight(30);
-        leaderboardTable.setFont(new Font("Serif", Font.PLAIN, 20));
+        leaderboardTable.setFont(new Font("SansSerif", Font.PLAIN, 20));
         leaderboardTable.getTableHeader().setFont(new Font("SansSerif", Font.BOLD, 16));
         leaderboardTable.getTableHeader().setBackground(new Color(34, 34, 34));
         leaderboardTable.getTableHeader().setForeground(new Color(255, 255, 255));
@@ -100,20 +69,45 @@ public class LeaderBoardPanel extends JPanel {
         leaderboardTable.setBackground(new Color(240, 240, 240));
         leaderboardTable.setForeground(new Color(50, 50, 50));
 
+        // Make the scroll pane transparent
+        scrollPane.setOpaque(false);
+        scrollPane.getViewport().setOpaque(false);
+
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
         leaderboardTable.setDefaultRenderer(Object.class, centerRenderer);
         leaderboardTable.getTableHeader().setDefaultRenderer(centerRenderer);
+
+        // Alternate row color
+        UIDefaults defaults = UIManager.getLookAndFeelDefaults();
+        if (defaults.get("Table.alternateRowColor") == null)
+            defaults.put("Table.alternateRowColor", new Color(220, 220, 220));
+    }
+
+    private void configureBackButton() {
+        // Customize back button
+        backButton.setFont(new Font("SansSerif", Font.BOLD, 14));
+        backButton.setPreferredSize(new Dimension(100, 50));
+
+        // Add padding around the back button
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new BorderLayout());
+        buttonPanel.add(backButton, BorderLayout.CENTER);
+        buttonPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
+        buttonPanel.setBackground(new Color(230, 230, 230)); // Match the wireframe background color
+
+        add(buttonPanel, BorderLayout.SOUTH);
     }
 
     private void updateLeaderboardTable(int difficultyLevel) {
+        // Get sorted list of users based on difficulty level
         ArrayList<User> users = LeaderBoard.getSortedList(difficultyLevel);
         Object[][] data = new Object[users.size()][3];
 
         for (int i = 0; i < users.size(); i++) {
             User user = users.get(i);
-            data[i][0] = i + 1; // Rank
-            data[i][1] = user.getEmail();
+            data[i][0] = i + 1;
+            data[i][1] = user.getEmail(); // You might need to change this to user.getName() or equivalent
             data[i][2] = switch (difficultyLevel) {
                 case 1 -> user.getLevel1HighestScore();
                 case 2 -> user.getLevel2HighestScore();
@@ -128,29 +122,13 @@ public class LeaderBoardPanel extends JPanel {
     }
 
     private void configureTableColumns() {
+        // Set custom widths for table columns
         int[] columnWidths = {50, 200, 100};
-        TableColumn column;
         for (int i = 0; i < columnWidths.length; i++) {
             if (i < leaderboardTable.getColumnModel().getColumnCount()) {
-                column = leaderboardTable.getColumnModel().getColumn(i);
+                TableColumn column = leaderboardTable.getColumnModel().getColumn(i);
                 column.setPreferredWidth(columnWidths[i]);
             }
         }
     }
-    
-    public void sfx(String filename) throws IOException {
-    	Clip clip;
-		try {
-			clip = AudioSystem.getClip();
-			clip.open(AudioSystem.getAudioInputStream(new File(filename)));
-	        clip.start();
-		} catch (LineUnavailableException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (UnsupportedAudioFileException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} 
-    }
-    
-} // class end
+}
