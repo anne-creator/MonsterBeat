@@ -57,7 +57,7 @@ public class GamePanel2 extends JPanel {
     int answerKey;
     Color cBlueBG = new Color(96, 96, 199);
     
-
+    JPanel timeLevelPanel;
     JLayeredPane layeredPane;
     /**
      * Constructs a game panel including the game's background, question panel, and UI elements like buttons and labels.
@@ -119,7 +119,7 @@ public class GamePanel2 extends JPanel {
         //setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         // Time and Level Panel
-        JPanel timeLevelPanel = new JPanel();
+        timeLevelPanel = new JPanel();
         timeLevelPanel.setBounds(461, 230, 360, 70);
         timeLevelPanel.setVisible(true);
         timeLevelPanel.setLayout(null);
@@ -274,6 +274,7 @@ public class GamePanel2 extends JPanel {
     public void handleStatus(String status) throws IOException {
         System.out.println(status);
         if (status.equals("game end")) {
+        	timeLevelPanel.setVisible(false);
             frame.switchToResultPanel(game, timeLeft);//, userEmail);					// FROM MERGE 3/31
         } else if (status.equals("c1- change question")) { // character lost a heart
             question = game.generateQuestion();
