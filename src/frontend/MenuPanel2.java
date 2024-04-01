@@ -15,6 +15,12 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * The MenuPanel2 class represents the main menu interface of the game, allowing users to navigate
+ * to different parts of the game such as starting a new game, viewing the tutorial, checking the leaderboard,
+ * logging out, or exiting the game. This panel includes interactive elements like buttons and a selection
+ * menu for difficulty levels, all laid out against a visually appealing background with optional animations.
+ */
 
 public class MenuPanel2 extends JPanel {
     Color cGreenBG = new Color(96, 199, 96);
@@ -24,7 +30,17 @@ public class MenuPanel2 extends JPanel {
     
     String[] difficulties = {"Easy", "Medium", "Hard"};
     int selectedDifficulty  = 1; // defualt is easy mode;
-    public MenuPanel2 (MainApplication frame, String userEmail) throws IOException {
+
+	/**
+	 * Constructs the main menu panel with navigation options for the game. It initializes UI components
+	 * including buttons for game actions and a combo box for difficulty selection, sets up the background
+	 * and title images, and prepares animations for visual enhancement.
+	 *
+	 * @param frame The main application frame to facilitate panel switching based on user interaction.
+	 * @param userEmail The email of the currently logged-in user, used for personalization and functionality.
+	 * @throws IOException If an error occurs loading images or sound files.
+	 */
+	public MenuPanel2 (MainApplication frame, String userEmail) throws IOException {
         JButton startButton, leaderboardButton, tutorialButton, logoutButton, exitButton;
     	
         // configure this class which extends jpanel
@@ -168,8 +184,15 @@ public class MenuPanel2 extends JPanel {
         timer.start(); // Start the countdown
 
     } // constructor end
-    
-    public void sfx(String filename) throws IOException {
+	/**
+	 * Plays a sound effect from a given file path. This method enhances user interaction by providing
+	 * audio feedback for actions within the menu.
+	 *
+	 * @param filename The path to the sound file to be played.
+	 * @throws IOException If there's an issue accessing or playing the sound file.
+	 */
+
+	public void sfx(String filename) throws IOException {
     	Clip clip;
 		try {
 			clip = AudioSystem.getClip();
@@ -183,8 +206,15 @@ public class MenuPanel2 extends JPanel {
 			e.printStackTrace();
 		} 
     }
-    
-    private void animate(JLabel labelPlayer, JLabel labelEnemy) {		// sequences the title screen animation
+	/**
+	 * Animates character and enemy images on the menu screen by cyclically moving their positions.
+	 * This method is intended to add dynamic visual effects to the menu.
+	 *
+	 * @param labelPlayer The JLabel containing the player's image.
+	 * @param labelEnemy The JLabel containing the enemy's image.
+	 */
+
+	private void animate(JLabel labelPlayer, JLabel labelEnemy) {		// sequences the title screen animation
     	if (animationTracker == 0) {
     		moveNE(labelPlayer);
     		moveSW(labelEnemy);
@@ -202,8 +232,14 @@ public class MenuPanel2 extends JPanel {
     		moveNW(labelEnemy);
     	}
     }
-    
-    private void moveNE(JLabel image) {									// moves JLabel 50 px in NE 
+	/**
+	 * Moves the provided JLabel image northeast by adjusting its position on the panel. This method is part of
+	 * the animation logic to create movement effects for images.
+	 *
+	 * @param image The JLabel to be moved.
+	 */
+
+	private void moveNE(JLabel image) {									// moves JLabel 50 px in NE
     	int newX = getX(image);
     	int newY = getY(image);
     	

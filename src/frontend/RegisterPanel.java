@@ -23,6 +23,7 @@ public class RegisterPanel extends JPanel {
             	}
             	else {
             		Accounts.create(new User(userEmail));
+            		Accounts.save();
             		Accounts.logIn(userEmail);
             		frame.switchToMenuPanel(userEmail);
             	}

@@ -11,14 +11,27 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.sound.sampled.*;
+/**
+ * The LoginPanel2 class provides a graphical user interface for users to log in,
+ * register a new account, or exit the application. It features animated background elements
+ * and sound effects for an interactive user experience.
+ */
 
 public class LoginPanel2 extends JPanel {
     //public JPanel buttonPanel = new JPanel();
     public JLayeredPane layeredPane;
     private int animationTracker = 0;
-    
-    
-    public LoginPanel2(MainApplication frame) throws IOException {
+
+	/**
+	 * Constructs a new LoginPanel2 with all UI components initialized, including text fields for user email,
+	 * buttons for login, registration, and exit, and sets up animations and sound effects. It configures the
+	 * panel layout, adding all necessary components to a layered pane for depth-based rendering.
+	 *
+	 * @param frame The main application window, allowing for navigation between different panels.
+	 * @throws IOException If an error occurs during loading of images or sound files.
+	 */
+
+	public LoginPanel2(MainApplication frame) throws IOException {
         JButton button0LogIn, button0NewUser, button0Exit;
         JTextField textField0UserEmail;
         
@@ -157,7 +170,14 @@ public class LoginPanel2 extends JPanel {
         //errorMessage.setAlignmentX(Component.CENTER_ALIGNMENT);
     	layeredPane.add(errorMessage, 0);
     }
-    public void sfx(String filename) throws IOException {
+	/**
+	 * Plays a sound effect from the specified file. It supports wav files and plays them once when called.
+	 *
+	 * @param filename The path and name of the sound file to play.
+	 * @throws IOException If there is an error loading or playing the sound file.
+	 */
+
+	public void sfx(String filename) throws IOException {
     	Clip clip;
 		try {
 			clip = AudioSystem.getClip();
@@ -171,9 +191,16 @@ public class LoginPanel2 extends JPanel {
 			e.printStackTrace();
 		} 
     }
-    
-    
-    private void animate(JLabel labelPlayer, JLabel labelEnemy) {		// sequences the title screen animation
+
+	/**
+	 * Manages the animation of player and enemy images on the login screen. This method updates
+	 * their positions to create a simple animation loop, enhancing the visual appeal of the panel.
+	 *
+	 * @param labelPlayer The JLabel containing the player's image.
+	 * @param labelEnemy The JLabel containing the enemy's image.
+	 */
+
+	private void animate(JLabel labelPlayer, JLabel labelEnemy) {		// sequences the title screen animation
     	if (animationTracker == 0) {
     		moveNE(labelPlayer);
     		moveSW(labelEnemy);
@@ -191,8 +218,14 @@ public class LoginPanel2 extends JPanel {
     		moveNW(labelEnemy);
     	}
     }
-    
-    private void moveNE(JLabel image) {									// moves JLabel 50 px in NE 
+	/**
+	 * Moves a JLabel image in the specified direction by adjusting its location.
+	 * This method is part of the animation system, updating the position of images to simulate movement.
+	 *
+	 * @param image The JLabel image to move.
+	 */
+
+	private void moveNE(JLabel image) {									// moves JLabel 50 px in NE
     	int newX = getX(image);
     	int newY = getY(image);
     	

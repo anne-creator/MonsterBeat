@@ -15,7 +15,11 @@ public class User {
     private int level2HighestScore;
     private int level3HighestScore;
 
-    /** constructor to create a new player without scores */
+    /**
+     * Constructor to create a new player without scores.
+     *
+     * @param email The email address of the new user.
+     */
     public User(String email)  {
         this.email = email;
 //        this.name = name;
@@ -25,7 +29,14 @@ public class User {
         this.level3HighestScore = 0;
     }
 
-    /** constructor to create a new player with scores */
+    /**
+     * Constructor to create a new player with initial scores.
+     *
+     * @param email The email address of the new user.
+     * @param level1HighestScore The highest score in level 1.
+     * @param level2HighestScore The highest score in level 2.
+     * @param level3HighestScore The highest score in level 3.
+     */
     public User(String email, int level1HighestScore, int level2HighestScore, int level3HighestScore) {
         this.email = email;
 //        this.name = name;
@@ -88,8 +99,12 @@ public class User {
     }
 
     /**
-     * update one player's score with input of difficulty level
-     * */
+     * Updates the highest score for the specified difficulty level.
+     *
+     * @param difficultyLevel The difficulty level (1, 2, or 3).
+     * @param newScore The new score to compare against the current highest score.
+     * @throws IOException If the difficulty level is invalid.
+     */
     public void updateHighestScore(int difficultyLevel, int newScore) throws IOException {
         if (difficultyLevel > 3 || difficultyLevel < 1) throw new IOException("invalid difficultyLevel");
 

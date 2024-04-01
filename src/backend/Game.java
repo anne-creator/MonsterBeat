@@ -6,7 +6,9 @@ import javax.swing.*;
 import java.util.concurrent.ExecutionException;
 
 /**
- * start game: currently only has one monster
+ * The Game class represents the main gameplay logic, controlling the flow of the game,
+ * managing questions, and tracking the player and monsters' states. It handles game initialization,
+ * difficulty settings, and responses to player's actions during the game.
  */
 
 public class Game {
@@ -36,9 +38,14 @@ public class Game {
         this.questionBank = questionBank;
     }
 
-    /** constructor
+    /**
+     * Constructs a new Game instance. Initializes game elements including monsters and the player character
+     * based on the specified difficulty level, and loads an appropriate set of questions.
      *
+     * @param UserEmail       Email of the user playing the game, used for score tracking (currently unused in constructor).
+     * @param difficultyLevel The difficulty level of the game, affecting monster difficulty and questions.
      */
+
     public Game(String UserEmail, int difficultyLevel) {
         System.out.println("difficultyLevel is : " + difficultyLevel);
         this.monsters = generateMonsters(difficultyLevel);
@@ -60,6 +67,11 @@ public class Game {
         }
         return this.questionBank.get(questionCounter++);
     }
+    /**
+     * Processes the player's incorrect answer, reducing the character's life and determining the game state.
+     * @return A string indicating the next state ("game end" if game is over, otherwise indicates question change).
+     */
+
     public String answerWrong(){
         character.loseALife();
         System.out.println("answerWong invoked");
@@ -68,6 +80,11 @@ public class Game {
         if (character.ifDied) return "game end";
         else return "c1- change question";
     }
+    /**
+     * Handles a correct answer from the player, affecting the monsters' health and potentially ending the game.
+     * @return A string indicating the game's next state based on the result of the answer.
+     */
+
     public String answerRight() {
         // monster1 already died
         if (monster1.getIfDied()) {
@@ -81,6 +98,11 @@ public class Game {
         }
 
     }
+    /**
+     * Calculates and returns the player's score based on the time left, remaining lives, and questions answered.
+     * @param timeLeft The time left in the game.
+     * @return The calculated score.
+     */
 
     public int calculateMarks(int timeLeft) {
         GameResult result = new GameResult();
@@ -97,6 +119,12 @@ public class Game {
             return questionAnswered * 30 - timeLeft;
         }
     }
+    /**
+     * Calculates the number of questions correctly answered based on the monsters' health.
+     * Used internally to determine the final score.
+     * @param monsters The list of monsters in the game.
+     * @return The number of questions correctly answered.
+     */
 
     public int calculateQuestions(ArrayList<Monster> monsters) {
         int result = 0;
@@ -108,6 +136,11 @@ public class Game {
         result += 3 - m2.getLivesLeft();
         return result;
     }
+    /**
+     * Generates the list of monsters for the game based on the difficulty level.
+     * @param difficultyLevel The game's difficulty level.
+     * @return A list of initialized monsters.
+     */
 
     private ArrayList<Monster> generateMonsters(int difficultyLevel) {
         ArrayList<Monster> monsterList = new ArrayList<>(2);
@@ -128,6 +161,11 @@ public class Game {
         monsterList.add(monster2);
         return monsterList;
     }
+    /**
+     * Creates the player character for the game based on the difficulty level.
+     * @param difficultyLevel The game's difficulty level.
+     * @return The initialized character.
+     */
 
     private Character generateCharacter(int difficultyLevel) {
         Character character = new Character();
