@@ -14,14 +14,16 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
+
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import backend.Game;
 import backend.Question;
 
 
 public class GamePanel2 extends JPanel {
-    private Timer timer;
+    private Timer timer, timer2;
     private int timeLeft = 60; // 60 seconds
     private JLabel timeLabel;
     Game game;
@@ -30,12 +32,13 @@ public class GamePanel2 extends JPanel {
     String monsterImg;
     int difficultyLevel, animationTracker = 0;
     String userEmail;
+    int pause = 0;
 
     // all Label and panel needs to be updated
     JLabel questionLabel;
     JButton[] buttonList = {new JButton(""), new JButton(""), new JButton(""), new JButton("")};
 //    BufferedImage characterHeartImg, monsterHeartImg, characterOrg;
-    JLabel monsterLabel, monsterHeartPanel, characterHeartPanel;
+    JLabel monsterLabel, monsterHeartPanel, characterHeartPanel, labelSpritePlayer;
     int answerKey;
     Color cBlueBG = new Color(96, 96, 199);
     
@@ -45,7 +48,7 @@ public class GamePanel2 extends JPanel {
     public GamePanel2(MainApplication frame, String userEmail, int difficultyLevel) throws IOException {
     	this.difficultyLevel = difficultyLevel;
     	this.userEmail = userEmail;
-    	
+        
     	// configure this class which extends jpanel
         setBounds(0, 0, 1280, 770);
 		setVisible(true);
@@ -68,9 +71,9 @@ public class GamePanel2 extends JPanel {
 		labelBackground.setBounds(0, 0, 1280, 770);		// (position, size)					// set bounds
 		layeredPane.add(labelBackground, 10);
 	    
-		JButton buttonPause = new JButton("Back to Menu"); 									// set button
-		buttonPause.setBounds(10, 10, 130, 40);	
-		buttonPause.addActionListener(e -> {
+		JButton buttonReturnMenu = new JButton("Back to Menu"); 									// set button
+		buttonReturnMenu.setBounds(10, 10, 130, 40);	
+		buttonReturnMenu.addActionListener(e -> {
 			try { sfx("soundDefault.wav"); }
         	catch (IOException e2) { e2.printStackTrace(); }  
 			
@@ -81,7 +84,7 @@ public class GamePanel2 extends JPanel {
 				e1.printStackTrace();
 			}
         });
-		layeredPane.add(buttonPause, 0);
+		layeredPane.add(buttonReturnMenu, 0);		
 		
 	    /////////////////////////////////////////////////////////
     	
@@ -127,7 +130,28 @@ public class GamePanel2 extends JPanel {
 		questionLabel = new JLabel(question.questionString);			// add JLabel of question to the questionPanel
 		questionLabel.setBounds(30, 30, 920, 100);		
 		questionLabel.setFont(new Font(labelFont.getName(), labelFont.getStyle(), 24));
-		questionPanel.add(questionLabel);	
+		questionPanel.add(questionLabel);
+		
+		JButton buttonPause = new JButton("Pause"); 									// set button
+		buttonPause.setBounds(10, 60, 130, 40);	
+		buttonPause.addActionListener(e -> {
+			try { sfx("soundDefault.wav"); }
+        	catch (IOException e2) { e2.printStackTrace(); }  
+			
+			if (pause == 0) {
+				pauseTimers();
+	            buttonPause.setText("Unpause");
+	            questionPanel.setVisible(false);
+	            pause++;
+			}
+			else {
+				unpauseTimers();
+				buttonPause.setText("Pause");
+				questionPanel.setVisible(true);
+				pause--;
+			}
+        });
+		layeredPane.add(buttonPause, 0);
 		
 		int xpos = 20;
         for (int i = 0; i < 4; i++) {
@@ -168,7 +192,7 @@ public class GamePanel2 extends JPanel {
         else if (difficultyLevel == 2) spritePlayer = ImageIO.read(new File("c2.png"));	
         else spritePlayer = ImageIO.read(new File("c3.png"));
         spritePlayer = resizeImage(spritePlayer, 250, 340);
-        JLabel labelSpritePlayer = new JLabel(new ImageIcon(spritePlayer));
+        labelSpritePlayer = new JLabel(new ImageIcon(spritePlayer));
         labelSpritePlayer.setBounds(40, 390, 250, 340);
 		labelSpritePlayer.setVisible(true);
 		layeredPane.add(labelSpritePlayer, 0);
@@ -203,24 +227,14 @@ public class GamePanel2 extends JPanel {
             if (timeLeft <= 0) {
                 timer.stop();
                 try {
-                    frame.switchToResultPanel(game, timeLeft, userEmail); // game ends when run out of time
+                    frame.switchToResultPanel(game, timeLeft);//, userEmail); // game ends when run out of time 		VERIFY - 3/31
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }
             }
         });
         timer.start(); // Start the countdown
-        
-        //////////////////////////////////////////////////////////
-        
-        // Timer config for animation
-        Timer timer2 = new Timer(500, new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		animate(labelSpritePlayer, monsterLabel);
-        		animationTracker = (animationTracker + 1) % 4;
-        	}
-        });
-        timer2.start(); // Start the countdown
+        initAnimation();
         
     }
 
@@ -306,6 +320,25 @@ public class GamePanel2 extends JPanel {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
+    }
+    
+    private void initAnimation() {
+    	// Timer config for animation
+        timer2 = new Timer(500, new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		animate(labelSpritePlayer, monsterLabel);
+        		animationTracker = (animationTracker + 1) % 4;
+        	}
+        });
+        timer2.start(); // Start the countdown
+    }
+    private void pauseTimers() {
+    	timer.stop();
+    	timer2.stop();
+    }
+    private void unpauseTimers() {
+    	timer.start();
+    	timer2.start();
     }
     
     private void animate(JLabel labelPlayer, JLabel labelEnemy) {		// sequences the title screen animation
