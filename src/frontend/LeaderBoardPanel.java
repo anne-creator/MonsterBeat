@@ -17,6 +17,10 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Represents a panel displaying the leaderboard in the game's GUI.
+ * It allows users to view scores across different difficulty levels.
+ */
 public class LeaderBoardPanel extends JPanel {
     private JTable leaderboardTable;
     private JScrollPane scrollPane;
@@ -25,6 +29,12 @@ public class LeaderBoardPanel extends JPanel {
     private String[] columnNames = {"Rank", "Name", "Score"};
     private String userEmail; // Variable to store user's email
 
+    /**
+     * Constructs a LeaderBoardPanel object.
+     *
+     * @param mainApp The main application window, used for navigating back.
+     * @param userEmail The email of the current user, for potential user-specific functionality.
+     */
     public LeaderBoardPanel(MainApplication mainApp, String userEmail) {
         this.userEmail = userEmail;
         setLayout(new BorderLayout(10, 10)); // Use BorderLayout for simplicity
@@ -47,9 +57,9 @@ public class LeaderBoardPanel extends JPanel {
         backButton = new JButton("Back");
         configureBackButton(); // Apply custom styles and place the back button
         backButton.addActionListener(e -> {
-        	try { sfx("soundDefault.wav"); }
-        	catch (IOException e2) { e2.printStackTrace(); }
-        	
+            try { sfx("soundDefault.wav"); }
+            catch (IOException e2) { e2.printStackTrace(); }
+
             try {
                 mainApp.switchToMenuPanel(userEmail);
             } catch (IOException ex) {
@@ -61,6 +71,9 @@ public class LeaderBoardPanel extends JPanel {
         updateLeaderboardTable(1);
     }
 
+    /**
+     * Styles the leaderboard table for better visual appearance.
+     */
     private void styleTable() {
         // Ensure scrollPane is not null
         if (scrollPane == null) {
@@ -92,6 +105,9 @@ public class LeaderBoardPanel extends JPanel {
             defaults.put("Table.alternateRowColor", new Color(220, 220, 220));
     }
 
+    /**
+     * Configures the back button with specific styles and functionality.
+     */
     private void configureBackButton() {
         // Customize back button
         backButton.setFont(new Font("SansSerif", Font.BOLD, 14));
@@ -107,6 +123,11 @@ public class LeaderBoardPanel extends JPanel {
         add(buttonPanel, BorderLayout.SOUTH);
     }
 
+    /**
+     * Updates the leaderboard table based on the selected difficulty level.
+     *
+     * @param difficultyLevel The difficulty level to display scores for.
+     */
     private void updateLeaderboardTable(int difficultyLevel) {
         // Get sorted list of users based on difficulty level
         ArrayList<User> users = LeaderBoard.getSortedList(difficultyLevel);
@@ -115,7 +136,7 @@ public class LeaderBoardPanel extends JPanel {
         for (int i = 0; i < users.size(); i++) {
             User user = users.get(i);
             data[i][0] = i + 1;
-            data[i][1] = user.getEmail(); // You might need to change this to user.getName() or equivalent
+            data[i][1] = user.getEmail(); // Change as needed to display names
             data[i][2] = switch (difficultyLevel) {
                 case 1 -> user.getLevel1HighestScore();
                 case 2 -> user.getLevel2HighestScore();
@@ -129,8 +150,10 @@ public class LeaderBoardPanel extends JPanel {
         configureTableColumns();
     }
 
+    /**
+     * Configures the widths of the columns in the leaderboard table.
+     */
     private void configureTableColumns() {
-        // Set custom widths for table columns
         int[] columnWidths = {50, 200, 100};
         for (int i = 0; i < columnWidths.length; i++) {
             if (i < leaderboardTable.getColumnModel().getColumnCount()) {
@@ -139,19 +162,21 @@ public class LeaderBoardPanel extends JPanel {
             }
         }
     }
-    
-    public void sfx(String filename) throws IOException {				// plays filename for string 
-    	Clip clip;
-		try {
-			clip = AudioSystem.getClip();
-			clip.open(AudioSystem.getAudioInputStream(new File(filename)));
-	        clip.start();
-		} catch (LineUnavailableException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (UnsupportedAudioFileException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} 
+
+    /**
+     * Plays a sound effect from the specified file.
+     *
+     * @param filename The path to the sound file.
+     * @throws IOException If there is an issue playing the sound.
+     */
+    public void sfx(String filename) throws IOException {
+        Clip clip;
+        try {
+            clip = AudioSystem.getClip();
+            clip.open(AudioSystem.getAudioInputStream(new File(filename)));
+            clip.start();
+        } catch (LineUnavailableException | UnsupportedAudioFileException e) {
+            e.printStackTrace();
+        }
     }
-} // class end
+}

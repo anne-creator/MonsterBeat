@@ -12,7 +12,11 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.Border;
-
+/**
+ * Initializes the gameplay environment, including setting up the UI components,
+ * loading background and character images, and preparing the game for start.
+ * It also initializes the timer for the gameplay and sets up the questions.
+ */
 public class Gameplay implements ActionListener {
 	
 	private JFrame guiFrame; 					// only used to add gameplayPanel to the GUI
@@ -57,9 +61,21 @@ public class Gameplay implements ActionListener {
 	private Timer timer;
 	private int timeLeft = 60;
 	private JLabel labelTimer;
-	
-	
-	
+
+	/**
+	 * Initializes the gameplay environment, including setting up the UI components,
+	 * loading background and character images, and preparing the game for start.
+	 * It also initializes the timer for the gameplay and sets up the questions.
+	 *
+	 * @param activeEmail The email of the currently active user.
+	 * @param frame The main JFrame onto which the gameplay panel is added.
+	 * @param mainScreen The JPanel representing the main screen of the game.
+	 * @param postWin The JPanel displayed upon winning a game.
+	 * @param postLose The JPanel displayed upon losing a game.
+	 * @param difficulty The difficulty level chosen for the game session.
+	 */
+
+
 	public Gameplay(String activeEmail, JFrame frame, JPanel mainScreen, JPanel postWin, JPanel postLose, String difficulty) {
 		this.activeEmail = activeEmail;
 		//this.activePassword = activePassword;
@@ -89,7 +105,10 @@ public class Gameplay implements ActionListener {
 			e.printStackTrace();
 		}
 	} // constructor END
-	
+	/**
+	 * Initializes the main gameplay panel and sets its basic properties.
+	 */
+
 	private void initPanel() {								// create gameplayPanel and add to frame 
 		panel = new JPanel();
 		panel.setBounds(0, 0, 1280, 770);
@@ -98,12 +117,21 @@ public class Gameplay implements ActionListener {
 		panel.setBackground(Color.red);
 		guiFrame.add(panel);
 	}
+	/**
+	 * Initializes the layered pane for managing different layers of UI components.
+	 */
+
 	private void initLayeredPane() {						// create layeredPane and add to gameplayPanel 
 		layeredPane = new JLayeredPane();
 	    layeredPane.setBounds(0, 0, 1280, 770);
 	    layeredPane.setVisible(true);
 	    panel.add(layeredPane);
-	}	
+	}
+	/**
+	 * Loads and sets the background image for the gameplay screen.
+	 * @throws IOException If the background image file cannot be found or read.
+	 */
+
 	private void initBackground() throws IOException {		// create JLabel to hold background, add to layeredPane at 10 
 		BufferedImage spriteEasyBackground;										
 		spriteEasyBackground = ImageIO.read(new File("easyBackground.jpg"));		// read in image
@@ -112,13 +140,20 @@ public class Gameplay implements ActionListener {
 		
 		layeredPane.add(picLabel, 10);												// add to layered pane
 	}
+	/**
+	 * Creates and configures the pause button to allow users to pause the game.
+	 */
+
 	private void initButtonPause() {						// create JButton to BACK, add to layeredPane at 0 
 		buttonPause = new JButton("TEMP BACK"); 									// set button
 		buttonPause.setBounds(0, 0, 124, 40);										
 		buttonPause.addActionListener(this);
 		layeredPane.add(buttonPause, 0);											// add to layered pane
 	}
-	
+	/**
+	 * Initializes the player's character, setting up its graphical representation.
+	 */
+
 	private void initPlayer() {								// create Class Player on layeredPane at 0 
 		try {
 			player = new Player(1);
@@ -132,6 +167,10 @@ public class Gameplay implements ActionListener {
 		spritePlayer.setVisible(true);
 		layeredPane.add(spritePlayer, 0);
 	}
+	/**
+	 * Initializes the enemy character(s) based on the current game difficulty.
+	 */
+
 	private void initEnemy() {								// create Class Enemy on layeredPane at 0 
 		try {
 			enemy = new Enemy("Easy", 1);
@@ -146,6 +185,10 @@ public class Gameplay implements ActionListener {
 		layeredPane.add(spriteEnemy, 0);
 		
 	}
+	/**
+	 * Initializes the hearts representing the player's health.
+	 */
+
 	private void initPlayerHearts() {						// initialise hearts for the player, on layer 0 
 		playerHearts = new JPanel[3];
 		
@@ -160,6 +203,10 @@ public class Gameplay implements ActionListener {
 			layeredPane.add(playerHearts[i], 0);
 		}
 	}
+	/**
+	 * Initializes the hearts representing the enemy's health.
+	 */
+
 	private void initEnemyHearts() {						// initialise hearts for the player, on layer 0 
 		enemyHearts = new JPanel[3];
 		
@@ -174,6 +221,10 @@ public class Gameplay implements ActionListener {
 			layeredPane.add(enemyHearts[i], 0);
 		}
 	}
+	/**
+	 * Initializes and starts the game timer.
+	 */
+
 	private void initTimer() {								// initialises 60 second timer, if runs out, lose game 
 		labelTimer = new JLabel("Time left: " + timeLeft);
 		labelTimer.setBounds(1150, 250, 80, 60);
@@ -193,7 +244,11 @@ public class Gameplay implements ActionListener {
         });
         timer.start(); // Start the countdown
 	}
-	
+	/**
+	 * Initializes the question panel and loads the first question.
+	 * @param question The index of the question to be loaded.
+	 */
+
 	private void initQuestion(int question) {				// initialises a questionPanel to the layeredPane at 
 		
 		expectedAnswer = Integer.parseInt(questions[question][0]);
@@ -234,6 +289,10 @@ public class Gameplay implements ActionListener {
 		}
 				
 	} // initQuestion END
+	/**
+	 * Clears the current question from the display once answered.
+	 */
+
 	private void nullQuestion() {							// is called when a single question is answered 
 		questionPanel.setVisible(questionInProgress);
 		layeredPane.remove(questionPanel);
@@ -247,7 +306,11 @@ public class Gameplay implements ActionListener {
 			buttons[i] = null;
 		}
 	}
-	
+	/**
+	 * Checks whether the player's answer is correct.
+	 * @return true if the answer is correct, false otherwise.
+	 */
+
 	private boolean checkAnswer() {							// used to check if the question is right or wrong 
 		if (playerAnswer == expectedAnswer) return true;
 		else return false;
@@ -279,7 +342,11 @@ public class Gameplay implements ActionListener {
 			postGameWin();
 		}
 	}
-	
+	/**
+	 * Handles action events from the UI, including answer submissions and button clicks.
+	 * @param e The action event triggered by UI components.
+	 */
+
 	public void actionPerformed(ActionEvent e) {			// tracks all button actions
 		if(e.getSource() == buttonPause) {
 			panel.setVisible(false);

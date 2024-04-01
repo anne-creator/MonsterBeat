@@ -17,13 +17,27 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+/**
+ * The RegisterPanel2 class serves as the registration interface within the game application,
+ * allowing new users to create an account by entering their email. It features a visually engaging
+ * background and interactive elements such as text fields for input and buttons for submitting the
+ * registration form or navigating back to the login screen. This panel also includes animations and
+ * sound effects to enhance user interaction and experience.
+ */
 
 public class RegisterPanel2 extends JPanel {
 	
 	public JLayeredPane layeredPane;
     private int animationTracker = 0;
-	
-    public RegisterPanel2(MainApplication frame) throws IOException {
+	/**
+	 * Constructs the registration panel, initializing UI components for user input, account creation, and navigation.
+	 * It sets up the panel with background images, title, player and enemy images, and animation timers for visual effects.
+	 *
+	 * @param frame The main application frame to facilitate navigation between different panels based on user actions.
+	 * @throws IOException If there is an issue loading images or sound files.
+	 */
+
+	public RegisterPanel2(MainApplication frame) throws IOException {
     	JTextField textField2Email;
     	JButton button2CreateAccount, button2ReturnToLogin, button2Exit;
     	
@@ -154,8 +168,14 @@ public class RegisterPanel2 extends JPanel {
         timer.start(); // Start the countdown
         
     } // constructor end
-    
-    public void sfx(String filename) throws IOException {
+	/**
+	 * Plays a sound effect from the specified file path, enhancing the user interaction experience with audio feedback.
+	 *
+	 * @param filename The path and filename of the sound effect to be played.
+	 * @throws IOException If the file cannot be found or an error occurs during audio playback.
+	 */
+
+	public void sfx(String filename) throws IOException {
     	Clip clip;
 		try {
 			clip = AudioSystem.getClip();
@@ -169,8 +189,12 @@ public class RegisterPanel2 extends JPanel {
 			e.printStackTrace();
 		} 
     }
-    
-    private void animate(JLabel labelPlayer, JLabel labelEnemy) {		// sequences the title screen animation
+	/**
+	 * Animates player and enemy images to create a dynamic visual effect on the registration screen.
+	 * The animation involves moving the images in a pre-defined pattern to simulate engagement.
+	 */
+
+	private void animate(JLabel labelPlayer, JLabel labelEnemy) {		// sequences the title screen animation
     	if (animationTracker == 0) {
     		moveNE(labelPlayer);
     		moveSW(labelEnemy);

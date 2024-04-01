@@ -10,9 +10,19 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-
+/**
+ * A panel for user login, providing fields for user authentication and options to log in, register, or exit.
+ */
 public class LoginPanel extends JPanel {
     public JPanel buttonPanel = new JPanel();
+
+
+    /**
+     * Constructs the login panel with user email input, login, create account, and exit buttons.
+     *
+     * @param frame The main application frame to which this panel belongs, used for navigating between panels.
+     * @throws IOException If there is an issue reading the image for the game logo.
+     */
     public LoginPanel(MainApplication frame) throws IOException {
         JButton button0LogIn, button0NewUser, button0Exit;
         JTextField textField0UserEmail;

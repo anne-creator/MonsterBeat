@@ -12,11 +12,22 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+/**
+ * Displays a tutorial panel within the application, offering guidance or instructions to the user.
+ * It includes visual aids and a return button to navigate back to the main menu.
+ */
 
 public class TutorialPanel extends JPanel {
 	
 	JLayeredPane layeredPane;
-	
+	/**
+	 * Constructs the tutorial panel, loading and displaying tutorial imagery and setting up navigation controls.
+	 *
+	 * @param frame The main application frame for navigating between panels.
+	 * @param userEmail The email address of the user, used for potential personalization or tracking.
+	 * @throws IOException If an error occurs loading images or sound files.
+	 */
+
 	public TutorialPanel(MainApplication frame, String userEmail) throws IOException {
 		JButton returnButton;
 		
@@ -70,8 +81,14 @@ public class TutorialPanel extends JPanel {
         
         
 	} // constructor end
-	
-	
+
+	/**
+	 * Plays a sound effect from the specified file. It supports WAV files and plays them once when invoked.
+	 *
+	 * @param filename The path and name of the sound file to play.
+	 * @throws IOException If there is an error loading or playing the sound file.
+	 */
+
 	public void sfx(String filename) throws IOException {
     	Clip clip;
 		try {
