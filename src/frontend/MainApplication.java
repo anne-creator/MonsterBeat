@@ -75,7 +75,13 @@ public class MainApplication extends JFrame  {
         validate();
         repaint();
     }
-
+    public void switchToTutorialPanel(String userEmail) throws IOException {
+    	JPanel tutorialPanel = new TutorialPanel(this, userEmail); 
+    	setContentPane(tutorialPanel);
+        validate();
+        repaint();
+    }
+    
 
     public void switchToGamePanel(String userEmail, int selectedDifficulty) throws IOException {
         JPanel gamePanel = new GamePanel2(this, userEmail, selectedDifficulty);

@@ -111,7 +111,12 @@ public class MenuPanel2 extends JPanel {
         tutorialButton.addActionListener(e ->  {
 			try { sfx("soundDefault.wav"); }
         	catch (IOException e2) { e2.printStackTrace(); }  
-			// switch to tutorial screen
+			try {
+				frame.switchToTutorialPanel(userEmail);
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		});
         
 
@@ -144,10 +149,10 @@ public class MenuPanel2 extends JPanel {
         // Exit Button
         exitButton = new JButton("Exit");
         exitButton.setBounds(541, 641, 200, 50);
-        exitButton.addActionListener(e -> { 
-        	System.exit(0); 
+        exitButton.addActionListener(e -> {  
         	try { sfx("soundDefault.wav"); }
-        	catch (IOException e2) { e2.printStackTrace(); }  
+        	catch (IOException e2) { e2.printStackTrace(); }
+        	System.exit(0);
         });
         layeredPane.add(exitButton, 0);
         
