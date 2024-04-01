@@ -51,8 +51,9 @@ public class MainApplication extends JFrame  {
         validate();
         repaint();
     }
-    public void switchToResultPanel(Game game, int timeLeft, String userEmail) throws IOException {	// 
-        JLabel timeLeftLabel = new JLabel("Time left: " + timeLeft + " seconds");
+    public void switchToResultPanel(Game game, int timeLeft, String userEmail) throws IOException {	// Seems obsolete? - 3/31 AL
+        System.out.println("SWITCH TO RESULTS PANEL CALLED");
+    	JLabel timeLeftLabel = new JLabel("Time left: " + timeLeft + " seconds");
         JPanel resultPanel = new ResultPanel(this, game, timeLeft, userEmail);
         timeLeftLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         resultPanel.add(timeLeftLabel);

@@ -217,7 +217,7 @@ public class GamePanel2 extends JPanel {
     public void handleStatus(String status) throws IOException {
         System.out.println(status);
         if (status.equals("game end")) {
-            frame.switchToResultPanel(game, timeLeft, userEmail);
+            frame.switchToResultPanel(game, timeLeft);//, userEmail);					// FROM MERGE 3/31
         } else if (status.equals("c1- change question")) { // character lost a heart
             question = game.generateQuestion();
             updateGamePanel(question, false, "character");
