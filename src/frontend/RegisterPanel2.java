@@ -1,6 +1,6 @@
 package frontend;
 
-import backend.DataProcessing;
+import backend.Accounts;
 import backend.User;
 
 import javax.imageio.ImageIO;
@@ -85,13 +85,14 @@ public class RegisterPanel2 extends JPanel {
         button2CreateAccount.addActionListener(e -> {      					 						// Action Listener for the button
         	String userEmail = textField2Email.getText();
             try {
-                if (DataProcessing.addNewUser(new User(userEmail)))
-                    // if return true, sucessfully log in
-                    frame.switchToMenuPanel(userEmail);
-                else {
-                	System.out.println("USER ALREADY EXISTS");	       					// TESTING
-                	frame.switchToLogInPanel(userEmail); // user already exsit			// ERROR ON THIS LINE IF ALREADY REGISTERED - 3/30 AL
-                }
+            	if (Accounts.exist(userEmail)) {
+            		frame.switchToLogInPanel(userEmail);
+            	}
+            	else {
+            		Accounts.create(new User(userEmail));
+            		Accounts.logIn(userEmail);
+            		frame.switchToMenuPanel(userEmail);
+            	}
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }

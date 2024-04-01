@@ -1,5 +1,6 @@
 package frontend;
 
+import backend.Accounts;
 import backend.DataProcessing;
 
 import javax.imageio.ImageIO;
@@ -65,9 +66,11 @@ public class LoginPanel extends JPanel {
         buttonPanel.add(button0LogIn);
         // Action Listener for the button
         button0LogIn.addActionListener(e -> {
-            if (DataProcessing.ifUserExsist(textField0UserEmail.getText())) {
+        	String userEmail = textField0UserEmail.getText();
+            if (Accounts.exist(userEmail)) {
                 try {
-                    frame.switchToMenuPanel(textField0UserEmail.getText());
+                	Accounts.logIn(userEmail);
+                    frame.switchToMenuPanel(userEmail);
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }

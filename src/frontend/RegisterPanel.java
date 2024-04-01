@@ -1,5 +1,6 @@
 package frontend;
 
+import backend.Accounts;
 import backend.DataProcessing;
 import backend.User;
 
@@ -17,10 +18,14 @@ public class RegisterPanel extends JPanel {
         button2CreateAccount.addActionListener(e -> {
             String userEmail = textField2Email.getText();
             try {
-                if (DataProcessing.addNewUser(new User(userEmail)))
-                    // if return true, sucessfully log in
-                    frame.switchToMenuPanel(userEmail);
-                else frame.switchToLogInPanel(userEmail); // user already exsit
+            	if (Accounts.exist(userEmail)) {
+            		frame.switchToLogInPanel(userEmail);
+            	}
+            	else {
+            		Accounts.create(new User(userEmail));
+            		Accounts.logIn(userEmail);
+            		frame.switchToMenuPanel(userEmail);
+            	}
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
