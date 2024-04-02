@@ -1,9 +1,6 @@
 package backend;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-import javax.swing.*;
-import java.util.concurrent.ExecutionException;
 
 /**
  * The Game class represents the main gameplay logic, controlling the flow of the game,
@@ -57,9 +54,6 @@ public class Game {
         Collections.shuffle(questionBank); //shuffle the question bank
     }
 
-//    private Question getNextQuestionString(int questionCounter) {
-//        return questionBank.get(questionCounter).questionString;
-//    }
     public Question generateQuestion() {
         if (this.questionCounter >= this.questionBank.size()) {
             //end game

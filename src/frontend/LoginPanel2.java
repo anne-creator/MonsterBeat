@@ -18,7 +18,6 @@ import javax.sound.sampled.*;
  */
 
 public class LoginPanel2 extends JPanel {
-    //public JPanel buttonPanel = new JPanel();
     public JLayeredPane layeredPane;
     private int animationTracker = 0;
 
@@ -34,13 +33,13 @@ public class LoginPanel2 extends JPanel {
 	public LoginPanel2(MainApplication frame) throws IOException {
         JButton button0LogIn, button0NewUser, button0Exit;
         JTextField textField0UserEmail;
-        
+
         // configure this class which extends jpanel
         setBounds(0, 0, 1280, 770);
 		setVisible(true);
 		setLayout(null);
-		setBackground(Color.red);        
-        
+		setBackground(Color.red);
+
         // since this is a type of panel,
         // initialise the layered pane and add to this
         layeredPane = new JLayeredPane();
@@ -48,38 +47,38 @@ public class LoginPanel2 extends JPanel {
 	    layeredPane.setVisible(true);
 	    layeredPane.setBackground(Color.GREEN);
 	    add(layeredPane);
-        
-        
+
+
 	    // initialise background
-        BufferedImage spriteEasyBackground;										
+        BufferedImage spriteEasyBackground;
 		spriteEasyBackground = ImageIO.read(new File("src/resources/easyBackground.jpg"));				// read in image
 		JLabel labelBackground = new JLabel(new ImageIcon(spriteEasyBackground));			// JLabel to hold image
 		labelBackground.setBounds(0, 0, 1280, 770);		// (position, size)					// set bounds
-		layeredPane.add(labelBackground, 10);	
-        
+		layeredPane.add(labelBackground, 10);
+
         // initialise title image
-		BufferedImage spriteGameTitle;										
+		BufferedImage spriteGameTitle;
 		spriteGameTitle = ImageIO.read(new File("src/resources/imageGameTitle.png"));						// read in image
 		JLabel labelGameTitle = new JLabel(new ImageIcon(spriteGameTitle));					// JLabel to hold image
 		labelGameTitle.setBounds(241, 20, 800, 400);	// (position, size)					// set bounds
-		layeredPane.add(labelGameTitle, 0);	
-		
+		layeredPane.add(labelGameTitle, 0);
+
 		// initialise player image
-		BufferedImage spritePlayer;										
+		BufferedImage spritePlayer;
 		spritePlayer = ImageIO.read(new File("src/resources/c1.png"));									// read in image
 		JLabel labelPlayer = new JLabel(new ImageIcon(spritePlayer));						// JLabel to hold image
 		labelPlayer.setBounds(10, 290, 364, 415);	// (position, size)						// set bounds
-		layeredPane.add(labelPlayer, 0);			
-		
+		layeredPane.add(labelPlayer, 0);
+
 		// initialise enemy image
-		BufferedImage spriteEnemy;										
+		BufferedImage spriteEnemy;
 		spriteEnemy = ImageIO.read(new File("src/resources/m1.png"));										// read in image
 		JLabel labelEnemy = new JLabel(new ImageIcon(spriteEnemy));							// JLabel to hold image
 		labelEnemy.setBounds(850, 240, 350, 411);	// (position, size)						// set bounds
-		layeredPane.add(labelEnemy, 0);	
-				
+		layeredPane.add(labelEnemy, 0);
+
 		//////////////////////////////////////////////////////////
-		
+
         // user email label
         JLabel labelEmail = new JLabel("Email:");											// set text labels
         labelEmail.setBounds(546, 456, 100, 20);
@@ -89,9 +88,9 @@ public class LoginPanel2 extends JPanel {
         textField0UserEmail = new JTextField(20);											// set input text fields
         textField0UserEmail.setBounds(541, 476, 200, 50);
         layeredPane.add(textField0UserEmail, 0);
-        
+
         // log in button
-        button0LogIn = new JButton("Log In"); 												// Log In Button					
+        button0LogIn = new JButton("Log In"); 												// Log In Button
         button0LogIn.setBounds(541, 531, 200, 50);
         layeredPane.add(button0LogIn, 0);
         button0LogIn.addActionListener(e -> {      					 						// Action Listener for the button
@@ -101,7 +100,7 @@ public class LoginPanel2 extends JPanel {
 				// TODO Auto-generated catch block
 				e2.printStackTrace();
 			}
-        	
+
         	String userEmail = textField0UserEmail.getText();
         	if (Accounts.exist(userEmail)) {
                 try {
@@ -128,7 +127,7 @@ public class LoginPanel2 extends JPanel {
 			} catch (IOException e2) {
 				// TODO Auto-generated catch block
 				e2.printStackTrace();
-			}    
+			}
         	try {
 				frame.switchToRegisterPanel();
 			} catch (IOException e1) {
@@ -147,12 +146,12 @@ public class LoginPanel2 extends JPanel {
 			} catch (IOException e2) {
 				// TODO Auto-generated catch block
 				e2.printStackTrace();
-			}  
+			}
         	System.exit(0);
         });
-        
+
         //////////////////////////////////////////////////////////
-        
+
         // Timer config for animation
         Timer timer = new Timer(500, new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -161,9 +160,9 @@ public class LoginPanel2 extends JPanel {
             }
         });
         timer.start(); // Start the countdown
-        
+
     } // constructor end
-    
+
     public void registerErrorMessage(JLabel message) {
     	JLabel errorMessage = message;											// set text labels
         errorMessage.setBounds(546, 700, 400, 20);
@@ -189,7 +188,7 @@ public class LoginPanel2 extends JPanel {
 		} catch (UnsupportedAudioFileException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} 
+		}
     }
 
 	/**
@@ -228,47 +227,47 @@ public class LoginPanel2 extends JPanel {
 	private void moveNE(JLabel image) {									// moves JLabel 50 px in NE
     	int newX = getX(image);
     	int newY = getY(image);
-    	
+
     	newX += 50;
     	newY -= 50;
-    	
+
     	image.setLocation(newX, newY);
     }
-    private void moveSE(JLabel image) {									// moves JLabel 50 px in SE 
+    private void moveSE(JLabel image) {									// moves JLabel 50 px in SE
     	int newX = getX(image);
     	int newY = getY(image);
-    	
+
     	newX += 50;
     	newY += 50;
-    	
+
     	image.setLocation(newX, newY);
     }
-    private void moveSW(JLabel image) {									// moves JLabel 50 px in SW 
+    private void moveSW(JLabel image) {									// moves JLabel 50 px in SW
     	int newX = getX(image);
     	int newY = getY(image);
-    	
+
     	newX -= 50;
     	newY += 50;
-    	
+
     	image.setLocation(newX, newY);
     }
-    private void moveNW(JLabel image) {									// moves JLabel 50 px in NW 
+    private void moveNW(JLabel image) {									// moves JLabel 50 px in NW
     	int newX = getX(image);
     	int newY = getY(image);
-    	
+
     	newX -= 50;
     	newY -= 50;
-    	
+
     	image.setLocation(newX, newY);
     }
-    
-    private int getX(JLabel image) {									// get x pos of JLabel 
+
+    private int getX(JLabel image) {									// get x pos of JLabel
     	Point location = image.getLocation();
     	return location.x;
     }
-    private int getY(JLabel image) {									// get y pos of JLabel 
+    private int getY(JLabel image) {									// get y pos of JLabel
     	Point location = image.getLocation();
     	return location.y;
     }
-    
+
 } // class end

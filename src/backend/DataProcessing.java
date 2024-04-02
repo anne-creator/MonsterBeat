@@ -30,23 +30,6 @@ public class DataProcessing {
     static String questionBank3Address = "src/database/questionbank3.csv";
 
     /**
-     * append a user's data to CSV file.
-     * @params a User
-     * @throws IOException if there is an I/O error during saving
-     */
-//    public static boolean addNewUser(User user){
-//        if (ifUserExsist(user.getEmail())) return false;
-//        try (FileWriter fileWriter = new FileWriter(UserInfo, true)) {
-//            String userString = user.getEmail() + ',' + user.getLevel1HighestScore() + ',' + user.getLevel2HighestScore() + ',' + user.getLevel3HighestScore() + "\n";
-//            fileWriter.append(userString);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        return true;
-//
-//    }
-
-    /**
      * read UserInfo.csv
      * @return an Array list read from UserINfo.csv
      * @throws IOException if there is an I/O error during reading
@@ -71,10 +54,6 @@ public class DataProcessing {
         return players;
     }
 
-//    public boolean updateUserScore(String userEmail, int difficultyLevel, int score) {
-//
-//        return true;
-//    }
     public static void updateUsers(ArrayList<User> users) {
     	Iterator<User> it = users.iterator();
     	User person;
@@ -87,31 +66,9 @@ public class DataProcessing {
     	    fw.close();
     	} catch (Exception e) {
     	    e.printStackTrace();
-    	}        
+    	}
 		return;
     }
-
-//    public static boolean ifUserExsist(String email) {
-//        ArrayList<User> users = DataProcessing.loadUserInfo();
-//        for (User user: users) {
-//            if (user.getEmail().equals(email)) {
-//                return true;
-//            }
-//        }
-//
-//        return false;
-//    }
-//
-//    public static User fineUserByEmail(String email) {
-//        ArrayList<User> users = DataProcessing.loadUserInfo();
-//        for (User user: users) {
-//            if (user.getEmail().equals(email)) {
-//                return user;
-//            }
-//        }
-//
-//        return null;
-//    }
 
     public static ArrayList<Question> loadQuestionBank(int difficulty) {
         //choose the question bank file based on difficulty
@@ -150,8 +107,4 @@ public class DataProcessing {
 
         return questionBank;
     }
-//    public static void main(String[] args) {
-//        Boolean result = DataProcessing.findUserByEmail("ron@gmail.com");
-//
-//    }
 }
