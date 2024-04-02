@@ -57,7 +57,7 @@ public class LeaderBoardPanel extends JPanel {
         backButton = new JButton("Back");
         configureBackButton(); // Apply custom styles and place the back button
         backButton.addActionListener(e -> {
-            try { sfx("soundDefault.wav"); }
+            try { sfx("src/resources/soundDefault.wav"); }
             catch (IOException e2) { e2.printStackTrace(); }
 
             try {

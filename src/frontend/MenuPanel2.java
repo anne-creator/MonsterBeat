@@ -60,28 +60,28 @@ public class MenuPanel2 extends JPanel {
 	    
 	    // initialise background
         BufferedImage spriteEasyBackground;										
-		spriteEasyBackground = ImageIO.read(new File("easyBackground.jpg"));				// read in image
+		spriteEasyBackground = ImageIO.read(new File("src/resources/easyBackground.jpg"));				// read in image
 		JLabel labelBackground = new JLabel(new ImageIcon(spriteEasyBackground));			// JLabel to hold image
 		labelBackground.setBounds(0, 0, 1280, 770);		// (position, size)					// set bounds
 		layeredPane.add(labelBackground, 10);	
 		
 		// initialise title image
 		BufferedImage spriteGameTitle;										
-		spriteGameTitle = ImageIO.read(new File("imageGameTitle.png"));						// read in image
+		spriteGameTitle = ImageIO.read(new File("src/resources/imageGameTitle.png"));						// read in image
 		JLabel labelGameTitle = new JLabel(new ImageIcon(spriteGameTitle));					// JLabel to hold image
 		labelGameTitle.setBounds(241, 20, 800, 400);	// (position, size)					// set bounds
 		layeredPane.add(labelGameTitle, 0);	
 		
 		// initialise title image
 		BufferedImage spritePlayer;										
-		spritePlayer = ImageIO.read(new File("c1.png"));									// read in image
+		spritePlayer = ImageIO.read(new File("src/resources/c1.png"));									// read in image
 		JLabel labelPlayer = new JLabel(new ImageIcon(spritePlayer));						// JLabel to hold image
 		labelPlayer.setBounds(10, 290, 364, 415);	// (position, size)						// set bounds
 		layeredPane.add(labelPlayer, 0);			
 				
 		// initialise title image
 		BufferedImage spriteEnemy;										
-		spriteEnemy = ImageIO.read(new File("m1.png"));										// read in image
+		spriteEnemy = ImageIO.read(new File("src/resources/m1.png"));										// read in image
 		JLabel labelEnemy = new JLabel(new ImageIcon(spriteEnemy));							// JLabel to hold image
 		labelEnemy.setBounds(850, 240, 350, 411);	// (position, size)						// set bounds
 		layeredPane.add(labelEnemy, 0);	
@@ -94,7 +94,7 @@ public class MenuPanel2 extends JPanel {
         // Start button
         startButton = new JButton("Start");													// Start Button
         startButton.addActionListener(e -> {
-        	try { sfx("soundDefault.wav"); }
+        	try { sfx("src/resources/soundDefault.wav"); }
         	catch (IOException e2) { e2.printStackTrace(); }  
         	
         	try {
@@ -125,7 +125,7 @@ public class MenuPanel2 extends JPanel {
         tutorialButton.setBounds(541, 476, 200, 50);
         layeredPane.add(tutorialButton, 0);
         tutorialButton.addActionListener(e ->  {
-			try { sfx("soundDefault.wav"); }
+			try { sfx("src/resources/soundDefault.wav"); }
         	catch (IOException e2) { e2.printStackTrace(); }  
 			try {
 				frame.switchToTutorialPanel(userEmail);
@@ -140,7 +140,7 @@ public class MenuPanel2 extends JPanel {
 		leaderboardButton = new JButton("Leaderboard");
 		leaderboardButton.setBounds(541, 531, 200, 50);
 		leaderboardButton.addActionListener(e ->  {
-			try { sfx("soundDefault.wav"); }
+			try { sfx("src/resources/soundDefault.wav"); }
         	catch (IOException e2) { e2.printStackTrace(); }  
 			frame.switchToLeaderBoardPanel(userEmail); 
 		}); // Pass userEmail as an argument
@@ -151,7 +151,7 @@ public class MenuPanel2 extends JPanel {
         logoutButton = new JButton("Logout");
         logoutButton.setBounds(541, 586, 200, 50);
         logoutButton.addActionListener(e -> {
-        	try { sfx("soundDefault.wav"); }
+        	try { sfx("src/resources/soundDefault.wav"); }
         	catch (IOException e2) { e2.printStackTrace(); }  
         	
 			try {
@@ -166,7 +166,7 @@ public class MenuPanel2 extends JPanel {
         exitButton = new JButton("Exit");
         exitButton.setBounds(541, 641, 200, 50);
         exitButton.addActionListener(e -> {  
-        	try { sfx("soundDefault.wav"); }
+        	try { sfx("src/resources/soundDefault.wav"); }
         	catch (IOException e2) { e2.printStackTrace(); }
         	System.exit(0);
         });

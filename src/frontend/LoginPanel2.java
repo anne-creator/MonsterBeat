@@ -52,28 +52,28 @@ public class LoginPanel2 extends JPanel {
         
 	    // initialise background
         BufferedImage spriteEasyBackground;										
-		spriteEasyBackground = ImageIO.read(new File("easyBackground.jpg"));				// read in image
+		spriteEasyBackground = ImageIO.read(new File("src/resources/easyBackground.jpg"));				// read in image
 		JLabel labelBackground = new JLabel(new ImageIcon(spriteEasyBackground));			// JLabel to hold image
 		labelBackground.setBounds(0, 0, 1280, 770);		// (position, size)					// set bounds
 		layeredPane.add(labelBackground, 10);	
         
         // initialise title image
 		BufferedImage spriteGameTitle;										
-		spriteGameTitle = ImageIO.read(new File("imageGameTitle.png"));						// read in image
+		spriteGameTitle = ImageIO.read(new File("src/resources/imageGameTitle.png"));						// read in image
 		JLabel labelGameTitle = new JLabel(new ImageIcon(spriteGameTitle));					// JLabel to hold image
 		labelGameTitle.setBounds(241, 20, 800, 400);	// (position, size)					// set bounds
 		layeredPane.add(labelGameTitle, 0);	
 		
 		// initialise player image
 		BufferedImage spritePlayer;										
-		spritePlayer = ImageIO.read(new File("c1.png"));									// read in image
+		spritePlayer = ImageIO.read(new File("src/resources/c1.png"));									// read in image
 		JLabel labelPlayer = new JLabel(new ImageIcon(spritePlayer));						// JLabel to hold image
 		labelPlayer.setBounds(10, 290, 364, 415);	// (position, size)						// set bounds
 		layeredPane.add(labelPlayer, 0);			
 		
 		// initialise enemy image
 		BufferedImage spriteEnemy;										
-		spriteEnemy = ImageIO.read(new File("m1.png"));										// read in image
+		spriteEnemy = ImageIO.read(new File("src/resources/m1.png"));										// read in image
 		JLabel labelEnemy = new JLabel(new ImageIcon(spriteEnemy));							// JLabel to hold image
 		labelEnemy.setBounds(850, 240, 350, 411);	// (position, size)						// set bounds
 		layeredPane.add(labelEnemy, 0);	
@@ -96,7 +96,7 @@ public class LoginPanel2 extends JPanel {
         layeredPane.add(button0LogIn, 0);
         button0LogIn.addActionListener(e -> {      					 						// Action Listener for the button
         	try {
-				sfx("soundDefault.wav");
+				sfx("src/resources/soundDefault.wav");
 			} catch (IOException e2) {
 				// TODO Auto-generated catch block
 				e2.printStackTrace();
@@ -124,7 +124,7 @@ public class LoginPanel2 extends JPanel {
         button0NewUser.setBounds(541, 586, 200, 50);
         button0NewUser.addActionListener(e -> {
         	try {
-				sfx("soundDefault.wav");
+				sfx("src/resources/soundDefault.wav");
 			} catch (IOException e2) {
 				// TODO Auto-generated catch block
 				e2.printStackTrace();
@@ -143,7 +143,7 @@ public class LoginPanel2 extends JPanel {
         layeredPane.add(button0Exit, 0);
         button0Exit.addActionListener(e -> {      		// Action Listener for the button
         	try {
-				sfx("soundDefault.wav");
+				sfx("src/resources/soundDefault.wav");
 			} catch (IOException e2) {
 				// TODO Auto-generated catch block
 				e2.printStackTrace();

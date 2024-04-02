@@ -34,7 +34,7 @@ public class ResultPanel extends JPanel {
         JButton buttonPause = new JButton("Back to Menu"); 									// set button
 		buttonPause.setBounds(10, 10, 130, 40);	
 		buttonPause.addActionListener(e -> {
-			try { sfx("soundDefault.wav"); }
+			try { sfx("src/resources/soundDefault.wav"); }
         	catch (IOException e2) { e2.printStackTrace(); }  
 			
             try {
@@ -81,7 +81,7 @@ public class ResultPanel extends JPanel {
 
         button0Back = new JButton("Go Back");
         button0Back.addActionListener(e -> {
-        	try { sfx("soundDefault.wav"); }
+        	try { sfx("src/resources/soundDefault.wav"); }
         	catch (IOException e2) { e2.printStackTrace(); }
         	try {
         		frame.switchToMenuPanel(game.character.toString());

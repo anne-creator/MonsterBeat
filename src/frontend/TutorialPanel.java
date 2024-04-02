@@ -48,14 +48,14 @@ public class TutorialPanel extends JPanel {
 	    
 	    // initialise background
         BufferedImage spriteEasyBackground;										
-		spriteEasyBackground = ImageIO.read(new File("easyBackground.jpg"));				// read in image
+		spriteEasyBackground = ImageIO.read(new File("src/resources/easyBackground.jpg"));				// read in image
 		JLabel labelBackground = new JLabel(new ImageIcon(spriteEasyBackground));			// JLabel to hold image
 		labelBackground.setBounds(0, 0, 1280, 770);		// (position, size)					// set bounds
 		layeredPane.add(labelBackground, 10);	
 		
 		// initialise title image
 		BufferedImage spriteTutorial;										
-		spriteTutorial = ImageIO.read(new File("imageTutorial.png"));						// read in image
+		spriteTutorial = ImageIO.read(new File("src/resources/imageTutorial.png"));						// read in image
 		JLabel labelTutorial = new JLabel(new ImageIcon(spriteTutorial));					// JLabel to hold image
 		labelTutorial.setBounds(175, 50, 932, 540);	// (position, size)					// set bounds
 		layeredPane.add(labelTutorial, 0);
@@ -66,7 +66,7 @@ public class TutorialPanel extends JPanel {
         returnButton = new JButton("Return");
         returnButton.setBounds(541, 641, 200, 50);
         returnButton.addActionListener(e -> { 
-        	try { sfx("soundDefault.wav"); }
+        	try { sfx("src/resources/soundDefault.wav"); }
         	catch (IOException e2) { e2.printStackTrace(); }  
         	try {
 				frame.switchToMenuPanel(userEmail);

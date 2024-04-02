@@ -149,14 +149,14 @@ public class Game {
         Monster monster1 = new Monster();
         Monster monster2 = new Monster();
         if (difficultyLevel == 1) {
-            monster1.setImg("m1.png");
-            monster2.setImg("m2.png");
+            monster1.setImg("src/resources/m1.png");
+            monster2.setImg("src/resources/m2.png");
         } else if (difficultyLevel == 2) {
-            monster1.setImg("m3.png");
-            monster2.setImg("m4.png");
+            monster1.setImg("src/resources/m3.png");
+            monster2.setImg("src/resources/m4.png");
         } else {
-            monster1.setImg("m5.png");
-            monster2.setImg("m6.png");
+            monster1.setImg("src/resources/m5.png");
+            monster2.setImg("src/resources/m6.png");
         }
 
         monsterList.add(monster1);
@@ -172,11 +172,11 @@ public class Game {
     private Character generateCharacter(int difficultyLevel) {
         Character character = new Character();
         if (difficultyLevel == 1) {
-            character.setImg("c1");
+            character.setImg("src/resources/c1.png");
         } else if (difficultyLevel == 2) {
-            character.setImg("c2");
+            character.setImg("src/resources/c2.png");
         } else {
-            character.setImg("c3");
+            character.setImg("src/resources/c3.png");
         }
 
         return character;

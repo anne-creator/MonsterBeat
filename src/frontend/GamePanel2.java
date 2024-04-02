@@ -88,9 +88,9 @@ public class GamePanel2 extends JPanel {
 
 	    // initialise background
         BufferedImage spriteBackground;
-        if (difficultyLevel == 1) spriteBackground = ImageIO.read(new File("easyBackground.jpg"));
-        else if (difficultyLevel == 2) spriteBackground = ImageIO.read(new File("mediumBackground.jpg"));
-        else spriteBackground = ImageIO.read(new File("hardBackground.jpg"));
+        if (difficultyLevel == 1) spriteBackground = ImageIO.read(new File("src/resources/easyBackground.jpg"));
+        else if (difficultyLevel == 2) spriteBackground = ImageIO.read(new File("src/resources/mediumBackground.jpg"));
+        else spriteBackground = ImageIO.read(new File("src/resources/hardBackground.jpg"));
 		JLabel labelBackground = new JLabel(new ImageIcon(spriteBackground));			// JLabel to hold image
 		labelBackground.setBounds(0, 0, 1280, 770);		// (position, size)					// set bounds
 		layeredPane.add(labelBackground, 10);
@@ -98,7 +98,7 @@ public class GamePanel2 extends JPanel {
 		JButton buttonReturnMenu = new JButton("Back to Menu"); 									// set button
 		buttonReturnMenu.setBounds(10, 10, 130, 40);
 		buttonReturnMenu.addActionListener(e -> {
-			try { sfx("soundDefault.wav"); }
+			try { sfx("src/resources/soundDefault.wav"); }
         	catch (IOException e2) { e2.printStackTrace(); }
 
             try {
@@ -159,7 +159,7 @@ public class GamePanel2 extends JPanel {
 		JButton buttonPause = new JButton("Pause"); 									// set button
 		buttonPause.setBounds(10, 60, 130, 40);
 		buttonPause.addActionListener(e -> {
-			try { sfx("soundDefault.wav"); }
+			try { sfx("src/resources/soundDefault.wav"); }
         	catch (IOException e2) { e2.printStackTrace(); }
 
 			if (pause == 0) {
@@ -189,7 +189,7 @@ public class GamePanel2 extends JPanel {
             int finalI = i;
             buttonList[i].addActionListener(e -> {
                 if (finalI == answerKey - 1) {
-                	try { sfx("soundBell.wav"); }
+                	try { sfx("src/resources/soundBell.wav"); }
                 	catch (IOException e2) { e2.printStackTrace(); }
                 	try {
                         System.out.println("answer right");
@@ -198,7 +198,7 @@ public class GamePanel2 extends JPanel {
                         throw new RuntimeException("error at game.answerRight method");
                     }
                 } else {
-                	try { sfx("soundBuzz.wav"); }
+                	try { sfx("src/resources/soundBuzz.wav"); }
                 	catch (IOException e2) { e2.printStackTrace(); }
                     try {
                         System.out.println("answer wrong");
@@ -212,9 +212,9 @@ public class GamePanel2 extends JPanel {
 
         // Load images for Player and Enemy
         BufferedImage spritePlayer;
-        if (difficultyLevel == 1) spritePlayer = ImageIO.read(new File("c1.png"));
-        else if (difficultyLevel == 2) spritePlayer = ImageIO.read(new File("c2.png"));
-        else spritePlayer = ImageIO.read(new File("c3.png"));
+        if (difficultyLevel == 1) spritePlayer = ImageIO.read(new File("src/resources/c1.png"));
+        else if (difficultyLevel == 2) spritePlayer = ImageIO.read(new File("src/resources/c2.png"));
+        else spritePlayer = ImageIO.read(new File("src/resources/c3.png"));
         spritePlayer = resizeImage(spritePlayer, 250, 340);
         labelSpritePlayer = new JLabel(new ImageIcon(spritePlayer));
         labelSpritePlayer.setBounds(40, 390, 250, 340);
@@ -222,9 +222,9 @@ public class GamePanel2 extends JPanel {
 		layeredPane.add(labelSpritePlayer, 0);
 
 		BufferedImage spriteEnemy;
-        if (difficultyLevel == 1) spriteEnemy = ImageIO.read(new File("m2.png"));
-        else if (difficultyLevel == 2) spriteEnemy = ImageIO.read(new File("m1.png"));
-        else spriteEnemy = ImageIO.read(new File("m3.png"));
+        if (difficultyLevel == 1) spriteEnemy = ImageIO.read(new File("src/resources/m2.png"));
+        else if (difficultyLevel == 2) spriteEnemy = ImageIO.read(new File("src/resources/m1.png"));
+        else spriteEnemy = ImageIO.read(new File("src/resources/m3.png"));
         spriteEnemy = resizeImage(spriteEnemy, 300, 340);
         monsterLabel = new JLabel(new ImageIcon(spriteEnemy));
         monsterLabel.setBounds(890, 340, 300, 340);
@@ -232,13 +232,13 @@ public class GamePanel2 extends JPanel {
 		layeredPane.add(monsterLabel, 0);
 
 		// create heart labels
-		BufferedImage characterHeartImg = ImageIO.read(new File("heart3.png"));
+		BufferedImage characterHeartImg = ImageIO.read(new File("src/resources/heart3.png"));
         characterHeartPanel = new JLabel(new ImageIcon(characterHeartImg));
         characterHeartPanel.setBounds(174, 250, 113, 32);
         characterHeartPanel.setVisible(true);
         layeredPane.add(characterHeartPanel, 0);
 
-        BufferedImage monsterHeartImg = ImageIO.read(new File("heart3.png"));
+        BufferedImage monsterHeartImg = ImageIO.read(new File("src/resources/heart3.png"));
         monsterHeartPanel = new JLabel(new ImageIcon(monsterHeartImg));
         monsterHeartPanel.setBounds(994, 250, 113, 32);
         monsterHeartPanel.setVisible(true);
@@ -315,33 +315,33 @@ public class GamePanel2 extends JPanel {
         // update the monster and refill monster's heart
         if (changeMonster) {
             BufferedImage monsterOrg;
-            if (difficultyLevel == 1) monsterOrg = ImageIO.read(new File("m4.png"));
-            else if (difficultyLevel == 2) monsterOrg = ImageIO.read(new File("m5.png"));
-            else monsterOrg = ImageIO.read(new File("m6.png"));
+            if (difficultyLevel == 1) monsterOrg = ImageIO.read(new File("src/resources/m4.png"));
+            else if (difficultyLevel == 2) monsterOrg = ImageIO.read(new File("src/resources/m5.png"));
+            else monsterOrg = ImageIO.read(new File("src/resources/m6.png"));
 
             BufferedImage monsterImg = resizeImage(monsterOrg, 300, 340);
             monsterLabel.setIcon(new ImageIcon(monsterImg));
 
             // monsterHeartPanel
-            BufferedImage monsterHeartImg = ImageIO.read(new File("heart3.png"));
+            BufferedImage monsterHeartImg = ImageIO.read(new File("src/resources/heart3.png"));
             monsterHeartPanel.setIcon(new ImageIcon(monsterHeartImg));
             this.repaint();
             return;
         } else {
             if (heartChangingPlayer.equals("monster1")) {
                 int heartNumber = game.monster1.getLivesLeft();
-                String address = "heart" + heartNumber + ".png";
+                String address = "src/resources/heart" + heartNumber + ".png";
                 BufferedImage monsterHeartImg = ImageIO.read(new File(address));
                 monsterHeartPanel.setIcon(new ImageIcon(monsterHeartImg));
             } else if (heartChangingPlayer.equals("monster2")) {
                 int heartNumber = game.monster2.getLivesLeft();
-                String address = "heart" + heartNumber + ".png";
+                String address = "src/resources/heart" + heartNumber + ".png";
                 BufferedImage monsterHeartImg = ImageIO.read(new File(address));
                 monsterHeartPanel.setIcon(new ImageIcon(monsterHeartImg));
             } else if (heartChangingPlayer.equals("character")) { // change character heart
                 System.out.println("character heart change");
                 int heartNumber = game.character.getLivesLeft();
-                String address = "heart" + heartNumber + ".png";
+                String address = "src/resources/heart" + heartNumber + ".png";
                 BufferedImage characterHeartImg = ImageIO.read(new File(address));
                 characterHeartPanel.setIcon(new ImageIcon(characterHeartImg));
             }
