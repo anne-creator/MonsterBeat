@@ -9,17 +9,17 @@ import java.util.Iterator;
  */
 
 public class Accounts {
-	
+
 	private static boolean status;
 	private static User user;
-	private static ArrayList<User> users;
+	private static ArrayList<User> userArrayList;
 
 	/**
 	 * Constructor for the Accounts class. Initializes the user list from storage,
 	 * sets the login status to false, and clears the current user.
 	 */
 	public Accounts() {
-		Accounts.users = DataProcessing.loadUserInfo();
+		Accounts.userArrayList = DataProcessing.loadUserInfo();
 		Accounts.status = false;
 		Accounts.user = null;
 	}
@@ -30,6 +30,10 @@ public class Accounts {
 	public static User getUser() {
 		return user;
 	}
+
+    public static void setUser(User user) {
+        Accounts.user = user;
+    }
 	/**
 	 * Checks if a user is currently logged in.
 	 * @return true if a user is logged in, false otherwise.
@@ -37,6 +41,16 @@ public class Accounts {
 	public static boolean getStatus() {
 		return status;
 	}
+    public static void setStatus(boolean status) {
+        Accounts.status = status;
+    }
+
+    public static void setUserArrayList(ArrayList<User> userArrayList) {
+        Accounts.userArrayList = userArrayList;
+    }
+    public static ArrayList<User>  getUserArrayList(ArrayList<User> userArrayList) {
+        return Accounts.userArrayList;
+    }
 	/**
 	 * Attempts to log in a user by their name.
 	 * @param name The name of the user attempting to log in.
@@ -63,9 +77,9 @@ public class Accounts {
     		return true;
     	}
     }
-    
+
     public static void save() {
-    	DataProcessing.updateUsers(users);
+    	DataProcessing.updateUsers(userArrayList);
     	return;
     }
 	/**
@@ -78,7 +92,7 @@ public class Accounts {
     		return false;
     	}
     	else {
-    		users.add(person);
+    		userArrayList.add(person);
     		return true;
     	}
     }
@@ -88,7 +102,7 @@ public class Accounts {
 	 * @return true if the user exists, false otherwise.
 	 */
 	public static boolean exist(String name) {
-		Iterator<User> it = users.iterator();
+		Iterator<User> it = userArrayList.iterator();
 		while (it.hasNext()) {
 			if (name.equals(it.next().getEmail())) return true;
 		}
@@ -101,12 +115,13 @@ public class Accounts {
 	 */
 	public static User find(String name) {
 		User person;
-		Iterator<User> it = users.iterator();
+		Iterator<User> it = userArrayList.iterator();
 		while (it.hasNext()) {
 			person = it.next();
 			if (name.equals(person.getEmail())) return person;
 		}
 		return null;
 	}
+
 
 }

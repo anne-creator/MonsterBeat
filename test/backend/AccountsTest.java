@@ -32,23 +32,13 @@ class AccountsTest {
         mockUsers.add(new User("test@example.com"));
         mockUsers.add(new User("another@example.com"));
         account = new Accounts();
+        mockUsers.setUserARrayList(mockUsers);
     }
 
     @Test
-    void getUser() {
-        System.out.println("getUser()");
-        account.setUser(mockUsers);
-        account.getUser();
-
-    }
-
-    @Test
-    void getStatus() {
-
-    }
-
-    @Test
-    void logIn() {
+    boolean logIn() {
+        account.login("test@example.com");
+        assertEquals(account.user, "test@example.com");
     }
 
     @Test
@@ -60,11 +50,11 @@ class AccountsTest {
     }
 
     @Test
-    void create() {
+    boolean create() {
     }
 
     @Test
-    void exist() {
+    boolean exist() {
     }
 
     @Test
