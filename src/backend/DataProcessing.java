@@ -22,12 +22,12 @@ import java.util.*;
 public class DataProcessing {
 
     // UserINfo file address
-    static String UserInfo = "src/database/UserInfo.csv";
+    public static String UserInfo = "src/database/UserInfo.csv";
 
     // questionbank address with different levels
-    static String questionBank1Address = "src/database/questionbank1.csv";
-    static String questionBank2Address = "src/database/questionbank2.csv";
-    static String questionBank3Address = "src/database/questionbank3.csv";
+    public static String questionBank1Address = "src/database/questionbank1.csv";
+    public static String questionBank2Address = "src/database/questionbank2.csv";
+    public static String questionBank3Address = "src/database/questionbank3.csv";
 
     /**
      * read UserInfo.csv
